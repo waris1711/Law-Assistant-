@@ -30,7 +30,7 @@ jobs:
       - name: Build Web Assets
         run: npm run build
         run: npx cap sync android || echo
-        "No Capacitor installed, skipping sync"
+        run: "No Capacitor installed, skipping sync"
       
           npx cap sync android || echo "No Capacitor installed, skipping sync"
 
