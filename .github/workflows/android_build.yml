@@ -33,13 +33,21 @@ jobs:
       - name: Build Web Assets
         run: npm run build
 
-      - name: Initialize Capacitor & Setup Android Platform
+      - name: Setup Capacitor Configuration
         run: |
-          # Agar config file nahi hai toh manually initialize karein
-          npx cap init "LawAssistant" "com.lawassistant.app" --web-dir "dist" || true
-          # Android platform add karein
+          # Purani broken ts config hata kar pure JSON config banayein
+          rm -f capacitor.config.ts
+          cat << 'EOF' > capacitor.config.json
+          {
+            "appId": "com.lawassistant.app",
+            "appName": "LawAssistant",
+            "webDir": "dist"
+          }
+          EOF
+
+      - name: Add Android Platform & Sync
+        run: |
           npx cap add android || true
-          # Web build ko Android project me sync karein
           npx cap sync android
 
       - name: Build APK with Gradle
