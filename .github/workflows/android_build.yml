@@ -33,16 +33,20 @@ jobs:
       - name: Build Web Assets
         run: npm run build
 
-      - name: Add Android Platform & Sync
+      - name: Initialize Capacitor & Setup Android Platform
         run: |
-          npx cap add android || echo "Android platform already exists"
+          # Agar config file nahi hai toh manually initialize karein
+          npx cap init "LawAssistant" "com.lawassistant.app" --web-dir "dist" || true
+          # Android platform add karein
+          npx cap add android || true
+          # Web build ko Android project me sync karein
           npx cap sync android
 
       - name: Build APK with Gradle
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug --no-daemon
           if [ -d "app/build/outputs/apk/debug" ]; then
             echo "APK directory found"
           else
