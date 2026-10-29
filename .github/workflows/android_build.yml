@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20'
 
       - name: Set up Java JDK
         uses: actions/setup-java@v3
@@ -24,15 +24,17 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-        name: Install dependencies
-        run: npm install --legacy-peer-deps 
-        name: Setup Capacitor / Android)
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Setup Capacitor / Android
+        run: npm install @capacitor/android
+
       - name: Build Web Assets
         run: npm run build
-        run: npx cap sync android || echo
-        run: "No Capacitor installed, skipping sync"
-      
-          npx cap sync android || echo "No Capacitor installed, skipping sync"
+
+      - name: Run cap sync android
+        run: npx cap sync android || echo "No Capacitor installed, skipping sync"
 
       - name: Build APK with Gradle
         run: |
