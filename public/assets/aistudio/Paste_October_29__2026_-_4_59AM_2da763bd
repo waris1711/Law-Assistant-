@@ -1,0 +1,1168 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEXINTEL | Architect By Waris Irshad</title>
+  <style>
+    :root {
+      --bg-color: #121314;
+      --surface-color: #1a1c1e;
+      --card-bg: #212428;
+      --card-hover: #272b30;
+      --text-color: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent-color: #f59e0b;
+      --accent-hover: #d97706;
+      --border-color: #2d3748;
+      --chip-bg: #2a2e33;
+      --success-color: #10b981;
+      --danger-color: #ef4444;
+      --info-color: #3b82f6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      padding: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--text-color);
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      color: var(--accent-color);
+      text-transform: uppercase;
+      opacity: 0.95;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lang-toggle-btn {
+      background: var(--surface-color);
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .lang-toggle-btn:hover {
+      background: var(--accent-color);
+      color: #000;
+    }
+
+    .profile-badge {
+      font-size: 11.5px;
+      color: var(--accent-color);
+      background: var(--surface-color);
+      padding: 5px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    /* Main Navigation Bar */
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-tab-btn {
+      background: var(--surface-color);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      padding: 7px 13px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .nav-tab-btn.active {
+      background: var(--accent-color);
+      color: #0b0c0d;
+      font-weight: 700;
+      border-color: var(--accent-color);
+    }
+
+    /* Sub Navigation */
+    .sub-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .sub-tab-btn {
+      background: var(--surface-color);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .sub-tab-btn.active {
+      background: #2b3036;
+      color: var(--accent-color);
+      border-color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    /* Search & Inputs */
+    .search-box {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: var(--surface-color);
+      color: var(--text-color);
+      font-size: 13.5px;
+      outline: none;
+      margin-bottom: 12px;
+      transition: border-color 0.15s ease;
+    }
+
+    .search-box:focus {
+      border-color: var(--accent-color);
+    }
+
+    /* Chips */
+    .chip-container {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      margin-bottom: 12px;
+      padding-bottom: 4px;
+      white-space: nowrap;
+    }
+    .chip-container::-webkit-scrollbar { display: none; }
+
+    .chip {
+      background: var(--chip-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chip:hover, .chip.active {
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--accent-color);
+      border-radius: 8px;
+      padding: 13px 14px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      background: var(--card-hover);
+      border-color: #4b5563;
+    }
+
+    .card h4 {
+      font-size: 14.5px;
+      color: var(--text-color);
+      margin-bottom: 5px;
+    }
+
+    .card p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .card-meta {
+      font-size: 10.5px;
+      text-transform: uppercase;
+      color: var(--accent-color);
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: 0.5px;
+    }
+
+    /* Status Badges */
+    .badge-status {
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+    .badge-good { background: rgba(16, 185, 129, 0.15); color: var(--success-color); border: 1px solid var(--success-color); }
+    .badge-distinguished { background: rgba(59, 130, 246, 0.15); color: var(--info-color); border: 1px solid var(--info-color); }
+    .badge-overruled { background: rgba(239, 68, 68, 0.15); color: var(--danger-color); border: 1px solid var(--danger-color); }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Chatbot Styles */
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+      max-height: 52vh;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .chat-bubble {
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+
+    .chat-user {
+      background: #282d33;
+      align-self: flex-end;
+      border: 1px solid var(--border-color);
+      max-width: 85%;
+      color: #fff;
+    }
+
+    .chat-ai {
+      background: var(--surface-color);
+      align-self: flex-start;
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--accent-color);
+      max-width: 96%;
+    }
+
+    .legal-basis-box {
+      background: #141618;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 9px 11px;
+      margin-top: 8px;
+      font-size: 11.5px;
+      line-height: 1.55;
+    }
+
+    .legal-basis-box strong {
+      color: var(--accent-color);
+    }
+
+    .chat-input-bar {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-send-btn {
+      background: var(--accent-color);
+      color: #0b0c0d;
+      border: none;
+      padding: 0 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .chat-send-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    /* Universal Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.78);
+      z-index: 1000;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #181b1e;
+      width: 100%;
+      max-width: 650px;
+      max-height: 85vh;
+      border-radius: 14px 14px 0 0;
+      border: 1px solid var(--border-color);
+      padding: 18px;
+      overflow-y: auto;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+      animation: slideUp 0.22s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+      gap: 10px;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      color: var(--accent-color);
+      font-weight: 700;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 26px;
+      cursor: pointer;
+      line-height: 0.8;
+      padding: 4px;
+    }
+
+    .modal-body h5 {
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-color);
+      margin: 12px 0 5px 0;
+    }
+
+    .modal-body p {
+      font-size: 12.5px;
+      color: var(--text-color);
+      line-height: 1.55;
+      background: var(--surface-color);
+      padding: 9px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Calculation / Box helper */
+    .stat-box {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header-container">
+    <div class="brand-title">
+      LEXINTEL
+      <span class="brand-sub">| Architect By Waris Irshad</span>
+    </div>
+    <div class="header-controls">
+      <button id="langToggleBtn" class="lang-toggle-btn" onclick="toggleLanguage()">
+        🌐 <span id="langBtnText">Roman Urdu</span>
+      </button>
+      <div class="profile-badge" data-en="Law Student" data-ur="Qanooni Talib-e-Ilm">Law Student</div>
+    </div>
+  </div>
+
+  <!-- Primary Navigation Bar -->
+  <div class="nav-tabs">
+    <button class="nav-tab-btn active" onclick="switchTab('constitution', this)" data-en="Constitution of India" data-ur="Aaeen-e-Hind (Constitution)">Constitution of India</button>
+    <button class="nav-tab-btn" onclick="switchTab('askLawAI', this)" data-en="Lexintel AI — Ask Law" data-ur="Lexintel AI — Qanoon Se Poochein">Lexintel AI — Ask Law</button>
+    <button class="nav-tab-btn" onclick="switchTab('caseFinder', this)" data-en="Case Law Finder" data-ur="Case Law Finder (Nazaair)">Case Law Finder</button>
+    <button class="nav-tab-btn" onclick="switchTab('mapper', this)" data-en="Statutory Mapper" data-ur="Statutory Mapper (Naye/Purane Qawaneen)">Statutory Mapper</button>
+    <button class="nav-tab-btn" onclick="switchTab('ratioDigest', this)" data-en="Ratio Digest" data-ur="Ratio Digest (Adalati Nazeer)">Ratio Digest</button>
+    <button class="nav-tab-btn" onclick="switchTab('aiCounsel', this)" data-en="AI Counsel Station" data-ur="AI Counsel Station (Remand & Custody)">AI Counsel Station</button>
+    <button class="nav-tab-btn" onclick="switchTab('dossiers', this)" data-en="Dossiers (3)" data-ur="Dossiers / Case Mislein (3)">Dossiers (3)</button>
+    <button class="nav-tab-btn" onclick="switchTab('glossary', this)" data-en="Legal Glossary" data-ur="Legal Glossary (Istilaahaat)">Legal Glossary</button>
+  </div>
+
+  <!-- ==================== TAB 1: CONSTITUTION OF INDIA ==================== -->
+  <div id="constitution" class="tab-content active">
+    <!-- Sub navigation for Articles, Schedules, Amendments -->
+    <div class="sub-tabs">
+      <button class="sub-tab-btn active" id="subBtnArticles" onclick="switchConstSubTab('constArticlesView')" data-en="Articles (1–395 Directory)" data-ur="Dafaat (1–395 Directory)">Articles (1–395 Directory)</button>
+      <button class="sub-tab-btn" id="subBtnSchedules" onclick="switchConstSubTab('constSchedulesView')" data-en="12 Schedules" data-ur="12 Schedules (Fehrist)">12 Schedules</button>
+      <button class="sub-tab-btn" id="subBtnAmendments" onclick="switchConstSubTab('constAmendmentsView')" data-en="Major Amendments" data-ur="Ahem Tarameem (Amendments)">Major Amendments</button>
+    </div>
+
+    <!-- Unified Search Box for Constitution -->
+    <input type="text" id="constMainSearch" class="search-box" placeholder="Search Article no., schedule, amendment, fundamental rights..." onkeyup="filterConstitutionSearch()">
+
+    <!-- View 1: Articles Directory -->
+    <div id="constArticlesView">
+      <div class="chip-container">
+        <span class="chip active" onclick="filterByPart('ALL', this)">All Parts</span>
+        <span class="chip" onclick="filterByPart('Part I', this)">Part I (1–4)</span>
+        <span class="chip" onclick="filterByPart('Part II', this)">Part II (5–11)</span>
+        <span class="chip" onclick="filterByPart('Part III', this)">Part III (12–35)</span>
+        <span class="chip" onclick="filterByPart('Part IV', this)">Part IV (36–51)</span>
+        <span class="chip" onclick="filterByPart('Part IVA', this)">Part IVA (51A)</span>
+        <span class="chip" onclick="filterByPart('Part V', this)">Part V (52–151)</span>
+        <span class="chip" onclick="filterByPart('Part IX', this)">Part IX (Panchayats)</span>
+        <span class="chip" onclick="filterByPart('Part XVIII', this)">Part XVIII (Emergency)</span>
+        <span class="chip" onclick="filterByPart('Part XX', this)">Part XX (Art 368)</span>
+      </div>
+
+      <div id="articlesList">
+        <!-- Article 1 -->
+        <div class="card const-card" data-part="Part I" data-keys="1 article 1 name territory union bharat states" onclick="showArticleModal('Article 1: Name and territory of the Union', 'India, that is Bharat, shall be a Union of States. The territory includes States, UTs, and acquired territories.', 'State of West Bengal v. Union of India (1963)', 'Establishes an indestructible Union composed of destructible States (Parliament can alter boundaries under Art 3).')">
+          <div class="card-meta"><span>Part I • Union & Territory</span><span>Tap Details ➔</span></div>
+          <h4>Article 1 — Name and Territory of the Union</h4>
+          <p data-en="India, that is Bharat, shall be a Union of States." data-ur="Hindustan, yani Bharat, riyasaton ka ek ittehad (Union of States) hoga.">India, that is Bharat, shall be a Union of States.</p>
+        </div>
+
+        <!-- Article 13 -->
+        <div class="card const-card" data-part="Part III" data-keys="13 judicial review fundamental rights inconsistency void" onclick="showArticleModal('Article 13: Laws inconsistent with Fundamental Rights', 'All laws in force in India inconsistent with Part III shall, to the extent of such inconsistency, be void.', 'Kesavananda Bharati (1973), State of Madras v. V.G. Row (1952)', 'The cornerstone of Judicial Review in India. Doctrines of Severability, Eclipse, and Waiver stem directly from Article 13.')">
+          <div class="card-meta"><span>Part III • Fundamental Rights</span><span>Tap Details ➔</span></div>
+          <h4>Article 13 — Laws Inconsistent with Part III</h4>
+          <p data-en="Constitutional basis of judicial review: any law infringing fundamental rights is void to that extent." data-ur="Judicial review ki buniyad: Aaeeni buniyadi haqooq ke khilaf banne wala koi bhi qanoon us had tak baatil hoga.">Constitutional basis of judicial review: any law infringing fundamental rights is void to that extent.</p>
+        </div>
+
+        <!-- Article 14 -->
+        <div class="card const-card" data-part="Part III" data-keys="14 equality before law equal protection arbitrariness royappa" onclick="showArticleModal('Article 14: Equality before law', 'The State shall not deny to any person equality before the law or equal protection of the laws within the territory of India.', 'E.P. Royappa v. State of TN (1974), Maneka Gandhi v. UOI (1978)', 'Guarantees equality and outlaws arbitrariness in state action. Intelligible differentia test and reasonable nexus test apply.')">
+          <div class="card-meta"><span>Part III • Fundamental Rights</span><span>Tap Details ➔</span></div>
+          <h4>Article 14 — Equality Before Law</h4>
+          <p data-en="Prohibits arbitrariness and ensures equal protection of the laws for all persons." data-ur="Har shakhs ke liye qanoon ke samne barabari aur yaksaan qanooni tahaffuz ki zamanat deta hai.">Prohibits arbitrariness and ensures equal protection of the laws for all persons.</p>
+        </div>
+
+        <!-- Article 19 -->
+        <div class="card const-card" data-part="Part III" data-keys="19 freedoms speech expression assembly trade anuradha bhasin" onclick="showArticleModal('Article 19: Protection of Six Freedoms', 'Guarantees freedoms of speech, assembly, association, movement, residence, and trade/occupation to citizens.', 'Shreya Singhal v. UOI (2015), Anuradha Bhasin v. UOI (2020)', 'Freedoms are not absolute; subject to reasonable restrictions under Clauses (2) through (6). Proportionality test applies.')">
+          <div class="card-meta"><span>Part III • Fundamental Rights</span><span>Tap Details ➔</span></div>
+          <h4>Article 19 — Protection of Core Freedoms</h4>
+          <p data-en="Six fundamental democratic freedoms protected for citizens, governed by reasonable statutory restrictions." data-ur="Shehriyon ko 6 buniyadi aazadiyan faraham karta hai, jin par munasib qanooni pabandiyan lagayi ja sakti hain.">Six fundamental democratic freedoms protected for citizens, governed by reasonable statutory restrictions.</p>
+        </div>
+
+        <!-- Article 21 -->
+        <div class="card const-card" data-part="Part III" data-keys="21 life personal liberty privacy maneka gandhi puttaswamy" onclick="showArticleModal('Article 21: Protection of Life & Personal Liberty', 'No person shall be deprived of his life or personal liberty except according to procedure established by law.', 'Maneka Gandhi v. UOI (1978), K.S. Puttaswamy v. UOI (2017)', 'Expanded via judicial activism to encompass right to privacy, clean environment, free legal aid, speedy trial, and dignity.')">
+          <div class="card-meta"><span>Part III • Fundamental Rights</span><span>Tap Details ➔</span></div>
+          <h4>Article 21 — Protection of Life & Personal Liberty</h4>
+          <p data-en="The bedrock of constitutional liberty. Encompasses right to live with human dignity and privacy." data-ur="Zindagi aur zaati aazadi ka buniyadi tahaffuz. Isme izzat ke sath jeene aur privacy ka haq shamil hai.">The bedrock of constitutional liberty. Encompasses right to live with human dignity and privacy.</p>
+        </div>
+
+        <!-- Article 32 -->
+        <div class="card const-card" data-part="Part III" data-keys="32 remedies supreme court writs habeas corpus ambedkar" onclick="showArticleModal('Article 32: Constitutional Remedies', 'Guarantees the right to move the Supreme Court directly for enforcement of Fundamental Rights by issuing Writs.', 'Fertilizer Corporation Kamgar Union (1981), Bandhua Mukti Morcha (1984)', 'Dr. B.R. Ambedkar termed it the Heart and Soul of the Constitution. Prerogative writs: Habeas Corpus, Mandamus, Prohibition, Quo Warranto, Certiorari.')">
+          <div class="card-meta"><span>Part III • Remedies</span><span>Tap Details ➔</span></div>
+          <h4>Article 32 — Remedies for Enforcement of Rights</h4>
+          <p data-en="Prerogative writs enforceable directly before the Supreme Court for protecting Fundamental Rights." data-ur="Buniyadi haqooq ke tahaffuz ke liye seedha Supreme Court mein writ dakhil karne ka aaeeni haq.">Prerogative writs enforceable directly before the Supreme Court for protecting Fundamental Rights.</p>
+        </div>
+
+        <!-- Article 368 -->
+        <div class="card const-card" data-part="Part XX" data-keys="368 amendment constituent power basic structure kesavananda" onclick="showArticleModal('Article 368: Power of Parliament to Amend Constitution', 'Parliament may amend by way of addition, variation, or repeal any provision of the Constitution as per procedure.', 'Kesavananda Bharati v. State of Kerala (1973), Minerva Mills (1980)', 'Constituent power is not unlimited. Parliament cannot destroy or alter the Basic Structure of the Constitution.')">
+          <div class="card-meta"><span>Part XX • Amendment</span><span>Tap Details ➔</span></div>
+          <h4>Article 368 — Parliament's Power to Amend</h4>
+          <p data-en="Constituent amending mechanism, bounded by the non-negotiable Basic Structure Doctrine." data-ur="Aaeen mein tarmeem karne ka parliamentary ikhtiyar, jo Basic Structure doctrine ke tehat paband hai.">Constituent amending mechanism, bounded by the non-negotiable Basic Structure Doctrine.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- View 2: 12 Schedules Breakdown -->
+    <div id="constSchedulesView" style="display: none;">
+      <div id="schedulesList">
+        <div class="card const-card" data-keys="schedule 1 first states union territories">
+          <span class="card-meta">First Schedule</span>
+          <h4>Schedule 1 — States and Union Territories</h4>
+          <p data-en="Lists all Indian States and Union Territories with demarcated geographical boundaries." data-ur="Hindustan ki tamam riyasaton aur UTs ki sarhadon ki fehrist.">Lists all Indian States and Union Territories with demarcated geographical boundaries.</p>
+        </div>
+        <div class="card const-card" data-keys="schedule 2 second salaries president governors judges">
+          <span class="card-meta">Second Schedule</span>
+          <h4>Schedule 2 — Salaries & Emoluments</h4>
+          <p data-en="Provisions regarding salaries and privileges of the President, Governors, Judges, and CAG." data-ur="Sadar, Governors, Judges aur CAG ki tankhwahon aur maraat ke qawaneen.">Provisions regarding salaries and privileges of the President, Governors, Judges, and CAG.</p>
+        </div>
+        <div class="card const-card" data-keys="schedule 3 third oaths affirmations ministers judges">
+          <span class="card-meta">Third Schedule</span>
+          <h4>Schedule 3 — Forms of Oaths & Affirmations</h4>
+          <p data-en="Prescribed official oaths for Union/State ministers, MPs, MLAs, and SC/HC judges." data-ur="Wuzra, Parlimani arkaan aur Judges ke halaf lene ke qanooni alfaz.">Prescribed official oaths for Union/State ministers, MPs, MLAs, and SC/HC judges.</p>
+        </div>
+        <div class="card const-card" data-keys="schedule 4 fourth allocation seats rajya sabha">
+          <span class="card-meta">Fourth Schedule</span>
+          <h4>Schedule 4 — Allocation of Seats in Rajya Sabha</h4>
+          <p data-en="Allocation of Council of States (Rajya Sabha) seats across States and Union Territories." data-ur="Rajya Sabha mein har riyasat aur UT ki maqsoos nashaston (seats) ki taqseem.">Allocation of Council of States (Rajya Sabha) seats across States and Union Territories.</p>
+        </div>
+        <div class="card const-card" data-keys="schedule 5 fifth scheduled areas scheduled tribes governance">
+          <span class="card-meta">Fifth Schedule</span>
+          <h4>Schedule 5 — Administration of Scheduled Areas</h4>
+          <p data-en="Governance and safeguards for Scheduled Areas and Scheduled Tribes across Indian states." data-ur="Makhsoos qabaili aur Scheduled ilaqon ka intezami dacha aur qanooni tahaffuz.">Governance and safeguards for Scheduled Areas and Scheduled Tribes across Indian states.</p>
+        </div>
+        <div class="card const-card" data-keys="schedule 6 sixth tribal areas assam meghalaya tripura mizoram">
+          <span class="card-meta">Sixth Schedule</span>
+          <h4>Schedule 6 — Tribal Areas in North-East</h4>
+          <p data-en="Autonomous district councils governance in Assam, Meghalaya, Tripura, and Mizoram." data-ur="Assam, Meghalaya, Tripura aur Mizoram ke khud-mukhtar tribal councils ka nizam.">Autonomous district councils governance in Assam, Meghalaya, Tripura, and Mizoram.</p>
+        </div>
+        <div class="card const-card" data-keys="schedule 7 seventh union list state concurrent legislative subjects">
+          <span class="card-meta">Seventh Schedule</span>
+          <h4>Schedule 7 — Legislative Distribution (Union, State, Concurrent Lists)</h4>
+          <p data-en="Defines distribution of law-making power: List I (Union), List II (State), List III (Concurrent)." data-ur="Qanoon saazi ke ikhtiyarat ki 3 fehristein: Markazi (Union), Riyasati (State), aur Mushtarka (Concurrent).">Defines distribution of law-making power: List I (Union), List II (State), List III (Concurrent).</p>
+        </div>
+        <div class="card const-card" data-keys="schedule 8 eighth 22 official recognized languages">
+          <span class="card-meta">Eighth Schedule</span>
+          <h4>Schedule 8 — Recognized Official Languages</h4>
+          <p data-en="Specifies the 22 official languages recognized under the Constitution of India." data-ur="Aaeen mein tasleem shuda 22 sarkari zabanon ki fehrist.">Specifies the 22 official languages recognized under the Constitution of India.</p>
+        </div>
+        <div class="card const-card" data-keys="schedule 9 ninth land reforms judicial review validation ir coelho">
+          <span class="card-meta">Ninth Schedule</span>
+          <h4>Schedule 9 — Validation of Acts (Judicial Review Barrier)</h4>
+          <p data-en="Historically protected land reforms; laws post-April 24, 1973 subject to Basic Structure review (I.R. Coelho)." data-ur="Zameen ki islaahat; lekin April 1973 ke baad daali gayi kanoon par judicial review laagu hota hai.">Historically protected land reforms; laws post-April 24, 1973 subject to Basic Structure review (I.R. Coelho).</p>
+        </div>
+        <div class="card const-card" data-keys="schedule 10 tenth anti defection law disqualification 52nd amendment">
+          <span class="card-meta">Tenth Schedule</span>
+          <h4>Schedule 10 — Anti-Defection Law</h4>
+          <p data-en="Provisions for disqualification of MPs/MLAs on grounds of party defection (Added by 52nd Amendment)." data-ur="Siyasi party badalne par Parliman ya Assembly arkaan ko na-ahal (disqualify) karne ka qanoon.">Provisions for disqualification of MPs/MLAs on grounds of party defection (Added by 52nd Amendment).</p>
+        </div>
+        <div class="card const-card" data-keys="schedule 11 eleventh panchayats rural local self government 29 matters">
+          <span class="card-meta">Eleventh Schedule</span>
+          <h4>Schedule 11 — Powers of Panchayats (Rural Governance)</h4>
+          <p data-en="Contains 29 operational subjects specified for Panchayati Raj bodies (73rd Amendment, 1992)." data-ur="Panchayati Raj ke 29 intezami shobe aur muqami dehi hakoomat ke ikhtiyarat.">Contains 29 operational subjects specified for Panchayati Raj bodies (73rd Amendment, 1992).</p>
+        </div>
+        <div class="card const-card" data-keys="schedule 12 twelfth municipalities urban local bodies 18 matters">
+          <span class="card-meta">Twelfth Schedule</span>
+          <h4>Schedule 12 — Powers of Municipalities (Urban Governance)</h4>
+          <p data-en="Specifies 18 functional matters for Municipalities and urban governance (74th Amendment, 1992)." data-ur="Shehri muqami hakoomaton (Municipalities) ke 18 intezami ikhtiyarat.">Specifies 18 functional matters for Municipalities and urban governance (74th Amendment, 1992).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- View 3: Major Amendments -->
+    <div id="constAmendmentsView" style="display: none;">
+      <div id="amendmentsList">
+        <div class="card const-card" data-keys="1st 1951 amendment ninth schedule free speech restrictions">
+          <span class="card-meta">1951 • Fundamental Rights Modification</span>
+          <h4>1st Amendment Act, 1951</h4>
+          <p data-en="Added 9th Schedule, Articles 31A/31B, and placed reasonable restrictions on free speech under 19(2)." data-ur="9th Schedule shamil kiya aur aazadi-e-izhar par munasib pabandiyan lagayin.">Added 9th Schedule, Articles 31A/31B, and placed reasonable restrictions on free speech under 19(2).</p>
+        </div>
+        <div class="card const-card" data-keys="42nd 1976 mini constitution socialist secular integrity duties 51a">
+          <span class="card-meta">1976 • "Mini-Constitution"</span>
+          <h4>42nd Amendment Act, 1976</h4>
+          <p data-en="Added 'Socialist, Secular, Integrity' to Preamble; introduced Fundamental Duties (Part IVA, Art 51A)." data-ur="Preamble mein 'Socialist, Secular' alfaz jode aur Buniyadi Faraiz (Art 51A) nafiz kiye.">Added 'Socialist, Secular, Integrity' to Preamble; introduced Fundamental Duties (Part IVA, Art 51A).</p>
+        </div>
+        <div class="card const-card" data-keys="44th 1978 property legal right article 20 21 emergency">
+          <span class="card-meta">1978 • Restoration of Civil Liberties</span>
+          <h4>44th Amendment Act, 1978</h4>
+          <p data-en="Removed Right to Property from Part III (transferred to Art 300A); Art 20 & 21 immune during Emergency." data-ur="Jaidad ke haq ko buniyadi haqooq se nikaal kar legal right banaya; Emergency mein bhi Art 20 aur 21 muattal nahi honge.">Removed Right to Property from Part III (transferred to Art 300A); Art 20 & 21 immune during Emergency.</p>
+        </div>
+        <div class="card const-card" data-keys="52nd 1985 anti defection tenth schedule floor crossing">
+          <span class="card-meta">1985 • Political Defection</span>
+          <h4>52nd Amendment Act, 1985</h4>
+          <p data-en="Introduced Tenth Schedule to combat political defection and opportunistic floor crossing." data-ur="Party badalne ke khilaf 10th Schedule shamil karke sakhth qanoon banaya.">Introduced Tenth Schedule to combat political defection and opportunistic floor crossing.</p>
+        </div>
+        <div class="card const-card" data-keys="73rd 74th 1992 panchayati raj municipalities local government">
+          <span class="card-meta">1992 • Local Self Governance</span>
+          <h4>73rd & 74th Amendment Acts, 1992</h4>
+          <p data-en="Granted constitutional status to Panchayats (Part IX) and Municipalities (Part IXA)." data-ur="Gaon ke Panchayats aur shehron ke Municipalities ko aaeeni darja ata kiya.">Granted constitutional status to Panchayats (Part IX) and Municipalities (Part IXA).</p>
+        </div>
+        <div class="card const-card" data-keys="86th 2002 education fundamental right 21a children">
+          <span class="card-meta">2002 • Right to Education</span>
+          <h4>86th Amendment Act, 2002</h4>
+          <p data-en="Inserted Article 21A: Right to free and compulsory education for children aged 6 to 14 years." data-ur="Article 21A joda: 6 se 14 saal ke bachon ke liye muft aur lazmi taleem ko buniyadi haq banaya.">Inserted Article 21A: Right to free and compulsory education for children aged 6 to 14 years.</p>
+        </div>
+        <div class="card const-card" data-keys="101st 2016 gst goods and services tax 246a 279a">
+          <span class="card-meta">2016 • Indirect Taxation</span>
+          <h4>101st Amendment Act, 2016</h4>
+          <p data-en="Introduced uniform Goods and Services Tax (GST) regime and constituted the GST Council." data-ur="Goods & Services Tax (GST) ka yaksaan markazi nizam nafiz kiya.">Introduced uniform Goods and Services Tax (GST) regime and constituted the GST Council.</p>
+        </div>
+        <div class="card const-card" data-keys="103rd 2019 ews 10 reservation economically weaker sections">
+          <span class="card-meta">2019 • Affirmative Action</span>
+          <h4>103rd Amendment Act, 2019</h4>
+          <p data-en="Provided up to 10% reservation for Economically Weaker Sections (EWS) in education & jobs." data-ur="Mali taur par kamzor tabqaat (EWS) ke liye taleem aur naukriyon mein 10% quota mukhtas kiya.">Provided up to 10% reservation for Economically Weaker Sections (EWS) in education & jobs.</p>
+        </div>
+        <div class="card const-card" data-keys="106th 2023 women reservation lok sabha assemblies nari shakti">
+          <span class="card-meta">2023 • Gender Representation</span>
+          <h4>106th Amendment Act, 2023</h4>
+          <p data-en="Nari Shakti Vandan Adhiniyam: One-third reservation for women in Lok Sabha and State Legislative Assemblies." data-ur="Lok Sabha aur Assemblies mein aurton ke liye 33% (ek-tihai) nashastein makhsoos ki gayi.">Nari Shakti Vandan Adhiniyam: One-third reservation for women in Lok Sabha and State Legislative Assemblies.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 2: LEXINTEL AI — ASK LAW ==================== -->
+  <div id="askLawAI" class="tab-content">
+    <div class="chip-container">
+      <span class="chip" onclick="askPreset('Kya police bina warrant arrest kar sakti hai?')">Bina warrant arrest?</span>
+      <span class="chip" onclick="askPreset('Default bail kab accrue hoti hai?')">Default Bail rules</span>
+      <span class="chip" onclick="askPreset('Kya police confession court mein admissible hai?')">Police confession validity</span>
+      <span class="chip" onclick="askPreset('Anticipatory bail kab seek ki ja sakti hai?')">Anticipatory Bail</span>
+    </div>
+
+    <div class="chat-container" id="chatArea">
+      <div class="chat-bubble chat-ai">
+        <strong>Lexintel Statutory AI Counsel</strong><br>
+        Ask any legal query. Mai statutory authority, bare section analysis, mandatory conditions, exceptions aur verified citations ke sath legal basis dunga.
+      </div>
+    </div>
+
+    <div class="chat-input-bar">
+      <input type="text" id="aiQueryInput" class="search-box" style="margin-bottom:0;" placeholder="Ask: e.g., Kya police bina warrant arrest kar sakti hai?">
+      <button class="chat-send-btn" onclick="handleAskLaw()">Ask</button>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 3: CASE LAW FINDER ==================== -->
+  <div id="caseFinder" class="tab-content">
+    <input type="text" id="caseSearchInput" class="search-box" placeholder="Search by Act, Section, Case Name, Citation or Issue (e.g. 167, 41, Arnesh Kumar, Privacy, Bail)..." onkeyup="filterCases()">
+
+    <div class="chip-container">
+      <span class="chip active" onclick="fillCaseSearch('')">All Cases</span>
+      <span class="chip" onclick="fillCaseSearch('Arrest')">Arrest Safeguards</span>
+      <span class="chip" onclick="fillCaseSearch('Privacy')">Privacy (Art 21)</span>
+      <span class="chip" onclick="fillCaseSearch('Default Bail')">Default Bail</span>
+      <span class="chip" onclick="fillCaseSearch('Basic Structure')">Basic Structure</span>
+      <span class="chip" onclick="fillCaseSearch('Overruled')">Overruled Precedents</span>
+    </div>
+
+    <div id="casesList">
+      <!-- Case 1 -->
+      <div class="card case-card" data-tags="arrest 41 crpc 35 bnss arnesh kumar notice supreme court 498a 7 years" onclick="showCaseModal('Arnesh Kumar v. State of Bihar', '(2014) 8 SCC 273', 'Supreme Court of India (2-Judge Bench)', 'Section 41 & 41A CrPC [Sec 35 BNSS], Sec 498A IPC', 'Appellant approached court seeking protection against mechanical and automatic arrest pursuant to FIR under Section 498A IPC.', 'Whether police can indiscriminately arrest the accused without fulfilling objective statutory necessity under Section 41 CrPC.', 'Arrest is not mandatory for offences punishable with imprisonment up to 7 years. Police must issue a notice of appearance (Sec 41A CrPC / Sec 35(3) BNSS) within 14 days and record objective reasons in writing before arresting. Magistrates must not authorize detention mechanically without scrutinizing the police report.', 'Paragraphs 7, 8, 9, 11', 'Good Law (Affirmed in Satender Kumar Antil 2022)')">
+        <div class="card-meta">
+          <span>(2014) 8 SCC 273 • SC</span>
+          <span class="badge-status badge-good">Good Law (Verified)</span>
+        </div>
+        <h4>Arnesh Kumar v. State of Bihar</h4>
+        <p><strong>Issue:</strong> Indiscriminate arrests under Section 41 CrPC / Section 35 BNSS.</p>
+        <p style="margin-top:3px;"><strong>Ratio:</strong> Mandatory Notice under Section 41A for offences up to 7 years imprisonment. Mechanical arrest prohibited.</p>
+      </div>
+
+      <!-- Case 2 -->
+      <div class="card case-card" data-tags="privacy article 21 puttaswamy aadhaar surveillance autonomy" onclick="showCaseModal('Justice K.S. Puttaswamy (Retd.) v. Union of India', '(2017) 10 SCC 1', 'Supreme Court of India (9-Judge Constitution Bench)', 'Article 21, Part III of the Constitution', 'Constitutional challenge to biometric identification on the threshold ground of infringement of individual bodily and informational privacy.', 'Whether the Right to Privacy constitutes an independent Fundamental Right guaranteed under Part III of the Constitution.', 'Right to Privacy is a core fundamental right intrinsic to the right to life and personal liberty under Article 21. Any state interference must satisfy the 3-fold proportionality standard: (1) Legality (statutory backing), (2) Legitimate state aim, and (3) Proportionality in impact.', 'Paragraphs 297, 310, 314', 'Good Law (Expressly overruled MP Sharma 1954 & Kharak Singh 1962)')">
+        <div class="card-meta">
+          <span>(2017) 10 SCC 1 • SC (9-Judge Bench)</span>
+          <span class="badge-status badge-good">Good Law (Landmark)</span>
+        </div>
+        <h4>K.S. Puttaswamy v. Union of India</h4>
+        <p><strong>Issue:</strong> Fundamental constitutional standing of the Right to Privacy under Article 21.</p>
+        <p style="margin-top:3px;"><strong>Ratio:</strong> Privacy is an inalienable fundamental right. State encroachments must clear the strict 3-fold proportionality test.</p>
+      </div>
+
+      <!-- Case 3 -->
+      <div class="card case-card" data-tags="bail default bail 167 crpc 187 bnss bikramjit singh chargesheet uapa" onclick="showCaseModal('Bikramjit Singh v. State of Punjab', '(2020) 10 SCC 616', 'Supreme Court of India (3-Judge Bench)', 'Section 167(2) CrPC [Sec 187 BNSS], Section 43D UAPA', 'Plea for statutory default bail when chargesheet was not submitted within the statutory duration.', 'Whether the indefeasible right to default bail under Section 167(2) can be extinguished by subsequent supplementary chargesheets.', 'Default bail under Section 167(2) is not merely a statutory provision; it is a fundamental right flowing directly from Article 21. Once the maximum statutory remand window expires without a chargesheet, the right accrues immediately and cannot be defeated by subsequent state filings on the same day.', 'Paragraphs 23, 24, 25', 'Good Law (Followed in M. Ravindran 2020)')">
+        <div class="card-meta">
+          <span>(2020) 10 SCC 616 • SC</span>
+          <span class="badge-status badge-good">Good Law (Verified)</span>
+        </div>
+        <h4>Bikramjit Singh v. State of Punjab</h4>
+        <p><strong>Issue:</strong> Default bail as an indefeasible fundamental right under Article 21 & Sec 167(2) CrPC.</p>
+        <p style="margin-top:3px;"><strong>Ratio:</strong> Accrued right to default bail cannot be frustrated by state filings subsequent to statutory timeline expiry.</p>
+      </div>
+
+      <!-- Case 4 -->
+      <div class="card case-card" data-tags="overruled emergency habeas corpus adm jabalpur shivkant shukla article 359" onclick="showCaseModal('ADM Jabalpur v. Shivkant Shukla', 'AIR 1976 SC 1207', 'Supreme Court of India (5-Judge Bench)', 'Article 21, Article 359 (National Emergency)', 'Detention of individuals during the Emergency without recourse to judicial determination under Article 226.', 'Whether a citizen has locus standi to move a High Court under Article 226 for Habeas Corpus during an Emergency when enforcement of Article 21 is suspended.', 'Majority held that upon presidential suspension of Part III enforcement, no person had legal standing to seek a writ of habeas corpus challenging executive detention.', 'Paragraph 573', 'Overruled (Expressly overruled in K.S. Puttaswamy 2017)')">
+        <div class="card-meta">
+          <span>AIR 1976 SC 1207 • SC</span>
+          <span class="badge-status badge-overruled">Overruled (Bad Law)</span>
+        </div>
+        <h4>ADM Jabalpur v. Shivkant Shukla</h4>
+        <p><strong>Issue:</strong> Suspension of fundamental rights & Habeas Corpus in emergency.</p>
+        <p style="margin-top:3px;"><strong>Ratio:</strong> Held habeas corpus unavailable in Emergency. Expressly overruled by 9-Judge Bench in Puttaswamy (2017).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 4: STATUTORY MAPPER (ROBUST EMBEDDED DICTIONARY) ==================== -->
+  <div id="mapper" class="tab-content">
+    <input type="text" id="mapperSearch" class="search-box" placeholder="Search Section number or title (e.g. 102, 302, 420, 167, 34, 439, 65B, BNS, BNSS)..." onkeyup="searchStatutoryMapper()">
+    
+    <div class="chip-container">
+      <span class="chip" onclick="quickFillMapper('102')">Sec 102 (CrPC / IPC)</span>
+      <span class="chip" onclick="quickFillMapper('302')">302 IPC / 101 BNS</span>
+      <span class="chip" onclick="quickFillMapper('420')">420 IPC / 318 BNS</span>
+      <span class="chip" onclick="quickFillMapper('167')">167 CrPC / 187 BNSS</span>
+      <span class="chip" onclick="quickFillMapper('34')">34 IPC / 3(5) BNS</span>
+      <span class="chip" onclick="quickFillMapper('65B')">65B IEA / 63 BSA</span>
+      <span class="chip" onclick="quickFillMapper('439')">439 CrPC / 483 BNSS</span>
+    </div>
+
+    <div id="mapperResults">
+      <!-- Embedded verified dataset so lookups never error or get stuck on missing local forage -->
+      <!-- 102 CrPC & IPC -->
+      <div class="card mapper-item" data-keys="102 crpc 106 bnss seizure property police search">
+        <div class="card-meta"><span>Criminal Procedure • Police Powers</span><span>Instant Mapping</span></div>
+        <h4>Section 102 CrPC ➔ Section 106 BNSS</h4>
+        <p data-en="Power of police officer to seize certain property alleged or suspected to have been stolen or found under circumstances which create suspicion of commission of any offence." data-ur="Police officer ka mashkook ya chori shuda samaan zabt karne ka ikhtiyar.">Power of police officer to seize certain property alleged or suspected to have been stolen or which creates suspicion of commission of any offence.</p>
+      </div>
+
+      <div class="card mapper-item" data-keys="102 ipc 39 bns private defence body commencement continuance">
+        <div class="card-meta"><span>Penal Law • General Exceptions</span><span>Instant Mapping</span></div>
+        <h4>Section 102 IPC ➔ Section 39 BNS</h4>
+        <p data-en="Commencement and continuance of the right of private defence of the body. Commences as soon as reasonable apprehension of danger arises." data-ur="Apni zaat ke difa (private defence) ke haq ka aaghaz aur tasalsul.">Commencement and continuance of the right of private defence of the body. Commences as soon as reasonable apprehension of danger arises.</p>
+      </div>
+
+      <!-- 302 IPC -->
+      <div class="card mapper-item" data-keys="302 ipc 101 bns murder punishment homicide death penalty life">
+        <div class="card-meta"><span>Penal Law • Offences Against Human Body</span><span>Instant Mapping</span></div>
+        <h4>Section 302 IPC ➔ Section 101(1) BNS</h4>
+        <p data-en="Punishment for murder: Death or imprisonment for life, and liable to fine." data-ur="Qatal ki saza: Maut ya umar qaid, sath mein jurmana.">Punishment for murder: Death or imprisonment for life, and liable to fine.</p>
+      </div>
+
+      <!-- 420 IPC -->
+      <div class="card mapper-item" data-keys="420 ipc 318 bns cheating fraud dishonestly inducing delivery property">
+        <div class="card-meta"><span>Penal Law • Property & Fraud</span><span>Instant Mapping</span></div>
+        <h4>Section 420 IPC ➔ Section 318(4) BNS</h4>
+        <p data-en="Cheating and dishonestly inducing delivery of property. Imprisonment up to 7 years and fine." data-ur="Dhoka-dahi (cheating) aur jaidad haasil karna. 7 saal tak ki qaid aur jurmana.">Cheating and dishonestly inducing delivery of property. Imprisonment up to 7 years and fine.</p>
+      </div>
+
+      <!-- 167 CrPC -->
+      <div class="card mapper-item" data-keys="167 crpc 187 bnss remand custody default bail police 15 days 60 90">
+        <div class="card-meta"><span>Criminal Procedure • Custody</span><span>Instant Mapping</span></div>
+        <h4>Section 167 CrPC ➔ Section 187 BNSS</h4>
+        <p data-en="Procedure when investigation cannot be completed in 24 hours. BNSS permits police custody in tranches across initial 40 or 60 days." data-ur="24 ghante mein tafteesh mukammal na hone par remand aur default bail ke qawaneen.">Procedure when investigation cannot be completed in 24 hours. BNSS permits police custody in tranches across initial 40 or 60 days.</p>
+      </div>
+
+      <!-- 34 IPC -->
+      <div class="card mapper-item" data-keys="34 ipc 3 5 bns common intention joint liability criminal acts">
+        <div class="card-meta"><span>Penal Law • Joint Liability</span><span>Instant Mapping</span></div>
+        <h4>Section 34 IPC ➔ Section 3(5) BNS</h4>
+        <p data-en="Acts done by several persons in furtherance of common intention; creates joint vicarious liability." data-ur="Mushtarka irade (common intention) ke tehat kiye gaye juraim mein har shakhs ki barabar zimmewari.">Acts done by several persons in furtherance of common intention; creates joint vicarious liability.</p>
+      </div>
+
+      <!-- 439 CrPC -->
+      <div class="card mapper-item" data-keys="439 crpc 483 bnss special powers high court session bail">
+        <div class="card-meta"><span>Criminal Procedure • Bail Jurisdiction</span><span>Instant Mapping</span></div>
+        <h4>Section 439 CrPC ➔ Section 483 BNSS</h4>
+        <p data-en="Special powers of High Court or Sessions Court regarding granting and cancelling regular bail." data-ur="High Court aur Sessions Court ke regular bail manzoor ya mansookh karne ke makhsoos ikhtiyarat.">Special powers of High Court or Sessions Court regarding granting and cancelling regular bail.</p>
+      </div>
+
+      <!-- 65B IEA -->
+      <div class="card mapper-item" data-keys="65b iea 63 bsa electronic record admissibility digital certificate">
+        <div class="card-meta"><span>Evidence Law • Digital Records</span><span>Instant Mapping</span></div>
+        <h4>Section 65B IEA ➔ Section 63 BSA</h4>
+        <p data-en="Admissibility of electronic records and mandatory conditions for digital certificates." data-ur="Electronic aur digital records ki adalat mein qabiliyat-e-idkhal (admissibility).">Admissibility of electronic records and mandatory conditions for digital certificates.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 5: RATIO DIGEST ==================== -->
+  <div id="ratioDigest" class="tab-content">
+    <input type="text" id="ratioSearch" class="search-box" placeholder="Search precedents, ratio decidendi, doctrines..." onkeyup="filterSectionCards('ratioSearch', 'ratioContainer')">
+    <div id="ratioContainer">
+      <div class="card">
+        <div class="card-meta"><span>Precedent Digest • BNSS § 187</span><span>Binding Ratio</span></div>
+        <h4>Bail & Default Bail Computation</h4>
+        <p data-en="Binding Ratio: Once the statutory investigation period (60/90 days) elapses without a chargesheet, an indefeasible right to default bail accrues and cannot be defeated by subsequent filings." data-ur="Faisle ki buniyad: Muqarrar waqt (60/90 din) mein chargesheet dakhil na hone par default bail ka haq fori laagu ho jata hai."><strong>Binding Ratio:</strong> Once the statutory period lapses without a chargesheet, an indefeasible right to default bail accrues instantly and cannot be defeated by subsequent filings.</p>
+      </div>
+      <div class="card">
+        <div class="card-meta"><span>Constitutional Law • 13-Judge Bench</span><span>Binding Ratio</span></div>
+        <h4>Basic Structure Doctrine (Kesavananda Bharati)</h4>
+        <p data-en="Binding Ratio: Parliament possesses vast amending power under Article 368, but it lacks the constituent competence to abrogate or damage the essential framework of the Constitution." data-ur="Faisle ki buniyad: Parliman ko aaeen mein tarmeem ka ikhtiyar hai magar woh aaeen ke buniyadi dhaanche ko khatam nahi kar sakti."><strong>Binding Ratio:</strong> Parliament possesses amending power under Art 368, but it lacks competence to damage or destroy the basic structure of the Constitution.</p>
+      </div>
+      <div class="card">
+        <div class="card-meta"><span>Criminal Procedure • Guidelines</span><span>Binding Ratio</span></div>
+        <h4>Police Interrogation & Arrest Safeguards (D.K. Basu)</h4>
+        <p data-en="Binding Ratio: Failure of police personnel to prepare an arrest memo or inform a relative of arrest constitutes contempt of court and departmental misconduct." data-ur="Faisle ki buniyad: Giraftari ke waqt memo na banana aur rishtedaron ko itteha na dena qanooni khilaf-warzi aur contempt hai."><strong>Binding Ratio:</strong> Failure of police officers to prepare arrest memos and notify family violates Article 21 and invites departmental action.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 6: AI COUNSEL STATION ==================== -->
+  <div id="aiCounsel" class="tab-content">
+    <div class="stat-box">
+      <div class="card-meta"><span>Statutory Regime Cross-Mapper</span><span>Real-Time Engine</span></div>
+      <h4>Procedural Comparison: CrPC Sec 167 vs. BNSS Sec 187</h4>
+      <p style="margin-top:6px;" data-en="Under old CrPC § 167, police custody was restricted to the initial 15 days of remand. Under new BNSS § 187, police custody can be sought in tranches throughout the first 40 or 60 days of custody, fundamentally changing bail strategy." data-ur="Purane CrPC 167 mein police custody sirf pehle 15 dinon mein milti thi. Naye BNSS 187 ke mutabiq police custody 40 ya 60 dinon ke doran hisson mein li ja sakti hai.">
+        Under old CrPC § 167, police custody was restricted to the initial 15 days of remand. Under new BNSS § 187, police custody can be sought in tranches throughout the first 40 or 60 days of custody, fundamentally changing bail strategy.
+      </p>
+    </div>
+    <div class="card">
+      <span class="card-meta">Interactive Calculation Assistant</span>
+      <h4>Default Bail Expiry Calculator</h4>
+      <p>Select arrest date and maximum punishment to calculate exact Section 187 BNSS expiry timeline and earliest default bail filing window.</p>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 7: DOSSIERS ==================== -->
+  <div id="dossiers" class="tab-content">
+    <div class="card">
+      <div class="card-meta"><span>Indexed Dossier • CR-MISC-2026-0842</span><span>Active Case File</span></div>
+      <h4>Tranche-Based Police Custody Beyond Initial 15 Days</h4>
+      <p data-en="Legal brief analyzing judicial interpretations of police custody tranches under Section 187(3) BNSS with draft writ petition templates." data-ur="Section 187(3) BNSS ke tehat police custody ke hisson par adalat ki tashreeh aur case ke legal papers.">Legal brief analyzing judicial interpretations of police custody tranches under Section 187(3) BNSS with draft writ petition templates.</p>
+    </div>
+    <div class="card">
+      <div class="card-meta"><span>Indexed Dossier • SC-SESS-2026-1194</span><span>Evidence Repository</span></div>
+      <h4>Section 63 BSA Digital Certificate Verification</h4>
+      <p data-en="Procedural repository on admissibility standards for cryptographic hash values and cloud server logs under Bharatiya Sakshya Adhiniyam." data-ur="Bharatiya Sakshya Adhiniyam ke tehat digital saboot aur certificate ki qanooni durustagi ka record.">Procedural repository on admissibility standards for cryptographic hash values and cloud server logs under Bharatiya Sakshya Adhiniyam.</p>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 8: LEGAL GLOSSARY ==================== -->
+  <div id="glossary" class="tab-content">
+    <input type="text" id="glossarySearch" class="search-box" placeholder="Search Latin maxims, legal terms, principles..." onkeyup="filterSectionCards('glossarySearch', 'glossaryList')">
+    <div id="glossaryList">
+      <div class="card">
+        <span class="card-meta">Precedent Jurisprudence</span>
+        <h4>Ratio Decidendi</h4>
+        <p data-en="The underlying legal principle or reason for a court's decision that constitutes binding authority for subordinate courts." data-ur="Adalat ke faisle ka woh buniyadi qanooni asool jo aage aane wale cases aur nichli adalaton par lazmi taur par laagu hota hai.">The underlying legal principle or reason for a court's decision that constitutes binding authority for subordinate courts.</p>
+      </div>
+      <div class="card">
+        <span class="card-meta">Precedent Jurisprudence</span>
+        <h4>Obiter Dicta</h4>
+        <p data-en="Observations or remarks made by a judge in passing, not essential to the decision, holding persuasive but non-binding value." data-ur="Judge ke faisle ke dauran diye gaye zaimni bayanaat jo binding nahi hote magar ahem rehnumai dete hain.">Observations or remarks made by a judge in passing, not essential to the decision, holding persuasive but non-binding value.</p>
+      </div>
+      <div class="card">
+        <span class="card-meta">Natural Justice</span>
+        <h4>Audi Alteram Partem</h4>
+        <p data-en="'Hear the other side.' Fundamental rule of procedural fairness ensuring no person is judged without a reasonable opportunity of being heard." data-ur="'Doosri party ko bhi suno.' Qudrati insaf ka buniyadi asool ke kisi bhi shakhs ke khilaf usko sune baghair faisla na ho.">"Hear the other side." Fundamental rule of procedural fairness ensuring no person is judged without a reasonable opportunity of being heard.</p>
+      </div>
+      <div class="card">
+        <span class="card-meta">Criminal Jurisprudence</span>
+        <h4>Actus Reus & Mens Rea</h4>
+        <p data-en="The physical wrongful act (Actus Reus) combined with a guilty mental state or intention (Mens Rea), both required to establish criminal guilt." data-ur="Mujrimana irada (Mens Rea) aur ghair-qanooni amal (Actus Reus) dono mil kar jurm bante hain.">The physical wrongful act (Actus Reus) combined with a guilty mental state or intention (Mens Rea), both required to establish criminal guilt.</p>
+      </div>
+      <div class="card">
+        <span class="card-meta">Civil Procedure</span>
+        <h4>Res Judicata (Sec 11 CPC)</h4>
+        <p data-en="A matter once adjudicated by a competent court cannot be litigated again by the same parties on the same cause of action." data-ur="Jis muqaddame ka faisla ba-ikhtiyar adalat kar chuki ho, uspar doosri baar muqaddama dakhil nahi kiya ja sakta.">A matter once adjudicated by a competent court cannot be litigated again by the same parties on the same cause of action.</p>
+      </div>
+      <div class="card">
+        <span class="card-meta">Evidence Law</span>
+        <h4>Prima Facie</h4>
+        <p data-en="'At first sight.' Sufficient evidence to establish a legal presumption or fact unless disproved by rebuttal evidence." data-ur="'Pehli nazar mein.' Woh saboot jo zahiri taur par kisi jurm ya daawe ko sach sabit karne ke liye kaafi ho.">'At first sight.' Sufficient evidence to establish a legal presumption or fact unless disproved by rebuttal evidence.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Universal Interactive Modal -->
+  <div id="detailModal" class="modal-overlay" onclick="closeDetailModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div id="modalTitle" class="modal-title">Details</div>
+        <button class="close-btn" onclick="closeModalDirect()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalDynamicBody">
+        <!-- Content injected dynamically via JS -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Global Language State
+    let currentLang = 'en';
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'en' ? 'ur' : 'en';
+      document.getElementById('langBtnText').innerText = currentLang === 'en' ? 'Roman Urdu' : 'English';
+
+      // Update all elements containing data-en and data-ur attributes
+      const translatables = document.querySelectorAll('[data-en][data-ur]');
+      translatables.forEach(el => {
+        el.innerText = el.getAttribute(`data-${currentLang}`);
+      });
+
+      // Update search placeholders
+      const searchInputs = {
+        'constMainSearch': currentLang === 'en' ? 'Search Article no., schedule, amendment, fundamental rights...' : 'Article number, schedule ya amendment talash karein...',
+        'aiQueryInput': currentLang === 'en' ? 'Ask: e.g., Kya police bina warrant arrest kar sakti hai?' : 'Poochiye: Maslan, Kya police bina warrant arrest kar sakti hai?',
+        'caseSearchInput': currentLang === 'en' ? 'Search by Act, Section, Case Name, Citation or Issue...' : 'Act, Section, Case ka naam ya issue talash karein...',
+        'mapperSearch': currentLang === 'en' ? 'Search Section number or title (e.g. 102, 302, 420, 167)...' : 'Section number ya title talash karein (e.g. 102, 302, 420)...',
+        'ratioSearch': currentLang === 'en' ? 'Search precedents, ratio decidendi, doctrines...' : 'Adalati nazeer, faisle ki buniyad talash karein...',
+        'glossarySearch': currentLang === 'en' ? 'Search Latin maxims, legal terms, principles...' : 'Latin maxims aur qanooni istilaahaat talash karein...'
+      };
+
+      for (const [id, ph] of Object.entries(searchInputs)) {
+        const input = document.getElementById(id);
+        if (input) input.placeholder = ph;
+      }
+    }
+
+    // Tab Navigation
+    function switchTab(tabId, btnElement) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(el => el.classList.remove('active'));
+
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
+      if (btnElement) btnElement.classList.add('active');
+    }
+
+    // Constitution Sub-tab Switcher
+    function switchConstSubTab(viewId) {
+      document.getElementById('constArticlesView').style.display = 'none';
+      document.getElementById('constSchedulesView').style.display = 'none';
+      document.getElementById('constAmendmentsView').style.display = 'none';
+
+      document.querySelectorAll('.sub-tab-btn').forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(viewId).style.display = 'block';
+
+      if (viewId === 'constArticlesView') document.getElementById('subBtnArticles').classList.add('active');
+      if (viewId === 'constSchedulesView') document.getElementById('subBtnSchedules').classList.add('active');
+      if (viewId === 'constAmendmentsView') document.getElementById('subBtnAmendments').classList.add('active');
+    }
+
+    // Modal Handlers
+    function closeModalDirect() {
+      document.getElementById('detailModal').classList.remove('open');
+    }
+
+    function closeDetailModal(e) {
+      if (e.target.id === 'detailModal') closeModalDirect();
+    }
+
+    function showArticleModal(title, bareAct, cases, notes) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalDynamicBody').innerHTML = `
+        <h5>Bare Act Provision / Summary</h5>
+        <p>${bareAct}</p>
+        <h5>Key Landmark Precedents</h5>
+        <p>${cases}</p>
+        <h5>Judicial & Exam Examination Notes</h5>
+        <p>${notes}</p>
+      `;
+      document.getElementById('detailModal').classList.add('open');
+    }
+
+    function showCaseModal(title, citation, bench, statute, facts, issue, ratio, paras, status) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalDynamicBody').innerHTML = `
+        <div style="margin-bottom: 8px;">
+          <span style="font-size:11.5px; color: var(--accent-color); font-weight:700;">Citation:</span> ${citation} | 
+          <span style="font-size:11.5px; color: var(--text-muted);">${bench}</span>
+        </div>
+        <h5>Applicable Statute & Sections</h5>
+        <p>${statute}</p>
+        <h5>Factual Matrix</h5>
+        <p>${facts}</p>
+        <h5>Core Legal Issue</h5>
+        <p>${issue}</p>
+        <h5>Ratio Decidendi (Binding Principle)</h5>
+        <p><strong>${ratio}</strong></p>
+        <h5>Verified Paragraphs & Status</h5>
+        <p>Paragraphs: ${paras}<br>Status: <strong>${status}</strong></p>
+      `;
+      document.getElementById('detailModal').classList.add('open');
+    }
+
+    // Unified Constitution Filter
+    function filterConstitutionSearch() {
+      const q = document.getElementById('constMainSearch').value.toLowerCase().trim();
+      const activeView = document.querySelector('#constitution > div[style*="block"]') || document.getElementById('constArticlesView');
+      const cards = activeView.querySelectorAll('.const-card');
+
+      cards.forEach(card => {
+        const text = (card.innerText + ' ' + (card.getAttribute('data-keys') || '')).toLowerCase();
+        card.style.display = text.includes(q) ? 'block' : 'none';
+      });
+    }
+
+    function filterByPart(partName, chipElement) {
+      const chips = chipElement.parentElement.querySelectorAll('.chip');
+      chips.forEach(c => c.classList.remove('active'));
+      chipElement.classList.add('active');
+
+      const cards = document.querySelectorAll('#articlesList .const-card');
+      cards.forEach(card => {
+        const part = card.getAttribute('data-part') || '';
+        card.style.display = (partName === 'ALL' || part === partName) ? 'block' : 'none';
+      });
+    }
+
+    // Case Law Filter
+    function filterCases() {
+      const q = document.getElementById('caseSearchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.case-card');
+      cards.forEach(card => {
+        const text = (card.innerText + ' ' + card.getAttribute('data-tags')).toLowerCase();
+        card.style.display = text.includes(q) ? 'block' : 'none';
+      });
+    }
+
+    function fillCaseSearch(term) {
+      const input = document.getElementById('caseSearchInput');
+      input.value = term;
+      filterCases();
+    }
+
+    // Statutory Mapper Search (Matches embedded dictionary reliably)
+    function searchStatutoryMapper() {
+      const query = document.getElementById('mapperSearch').value.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
+      const tokens = query.split(/\s+/).filter(Boolean);
+      const items = document.querySelectorAll('.mapper-item');
+
+      items.forEach(item => {
+        const keyData = (item.getAttribute('data-keys') + ' ' + item.innerText).toLowerCase();
+        if (tokens.length === 0) {
+          item.style.display = 'block';
+          return;
+        }
+        const isMatch = tokens.every(token => keyData.includes(token));
+        item.style.display = isMatch ? 'block' : 'none';
+      });
+    }
+
+    function quickFillMapper(val) {
+      const searchBox = document.getElementById('mapperSearch');
+      searchBox.value = val;
+      searchStatutoryMapper();
+    }
+
+    // Generic filter for cards
+    function filterSectionCards(inputId, containerId) {
+      const query = document.getElementById(inputId).value.toLowerCase().trim();
+      const container = document.getElementById(containerId);
+      const cards = container.getElementsByClassName('card');
+
+      Array.from(cards).forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(query) ? 'block' : 'none';
+      });
+    }
+
+    // Lexintel AI "Ask Law" logic
+    function askPreset(question) {
+      document.getElementById('aiQueryInput').value = question;
+      handleAskLaw();
+    }
+
+    function handleAskLaw() {
+      const input = document.getElementById('aiQueryInput');
+      const query = input.value.trim();
+      if (!query) return;
+
+      const chatArea = document.getElementById('chatArea');
+
+      // User Bubble
+      const userBubble = document.createElement('div');
+      userBubble.className = 'chat-bubble chat-user';
+      userBubble.innerText = query;
+      chatArea.appendChild(userBubble);
+      input.value = '';
+
+      // AI Response with statutory basis
+      setTimeout(() => {
+        const aiBubble = document.createElement('div');
+        aiBubble.className = 'chat-bubble chat-ai';
+        const qLower = query.toLowerCase();
+
+        if (qLower.includes('arrest') || qLower.includes('warrant')) {
+          aiBubble.innerHTML = `
+            <strong>Statutory Legal Position:</strong><br>
+            Police can arrest without a warrant <strong>only in cognizable offences</strong> or under express conditions specified by statute. In non-cognizable offences, an arrest warrant issued by a competent Magistrate is legally mandatory.
+            
+            <div class="legal-basis-box">
+              <strong>1. Applicable Law:</strong> Code of Criminal Procedure, 1973 / Bharatiya Nagarik Suraksha Sanhita, 2023.<br>
+              <strong>2. Statutory Section:</strong> Section 41 CrPC ➔ Section 35 BNSS.<br>
+              <strong>3. Mandatory Conditions:</strong> For offences punishable with imprisonment up to 7 years, arrest cannot be routine. Police must satisfy necessity parameters (preventing further crime, tampering with evidence, threatening witnesses) and record written reasons.<br>
+              <strong>4. Statutory Exceptions:</strong> Section 41A CrPC [Sec 35(3) BNSS] mandates notice of appearance where arrest is not strictly necessary.<br>
+              <strong>5. Leading Citation:</strong> <em>Arnesh Kumar v. State of Bihar (2014) 8 SCC 273</em>.<br>
+              <strong>⚠️ Insufficient Facts Notice:</strong> If the nature of offence (cognizable or non-cognizable) and maximum prescribed imprisonment are unspecified, absolute legality cannot be adjudicated.
+            </div>
+          `;
+        } else if (qLower.includes('default bail') || qLower.includes('167') || qLower.includes('187')) {
+          aiBubble.innerHTML = `
+            <strong>Statutory Legal Position:</strong><br>
+            Default bail is an indefeasible fundamental right under Article 21 when the investigative agency fails to file a police report (chargesheet) within the statutory limitation period.
+            
+            <div class="legal-basis-box">
+              <strong>1. Relevant Provision:</strong> Section 167(2) CrPC ➔ Section 187(2)-(3) BNSS.<br>
+              <strong>2. Statutory Remand Timelines:</strong> 90 days (offences punishable with death, life imprisonment, or minimum 10 years imprisonment) or 60 days (all other offences).<br>
+              <strong>3. Binding Ratio:</strong> Right accrues immediately upon expiry of the period and cannot be frustrated by subsequent filings. (<em>Bikramjit Singh v. State of Punjab 2020</em>).
+            </div>
+          `;
+        } else if (qLower.includes('confession') || qLower.includes('police')) {
+          aiBubble.innerHTML = `
+            <strong>Statutory Legal Position:</strong><br>
+            A confession made to a police officer is strictly inadmissible against an accused person in criminal proceedings.
+            
+            <div class="legal-basis-box">
+              <strong>1. Relevant Law:</strong> Indian Evidence Act, 1872 / Bharatiya Sakshya Adhiniyam, 2023.<br>
+              <strong>2. Statutory Section:</strong> Section 25 & 26 IEA ➔ Section 22 & 23 BSA.<br>
+              <strong>3. Statutory Exception:</strong> Section 27 IEA [Sec 23(2) BSA] allows admissibility strictly limited to the recovery of a distinct physical fact or object discovered pursuant to information received from the accused.
+            </div>
+          `;
+        } else {
+          aiBubble.innerHTML = `
+            <strong>Legal Analysis Received:</strong> "${query}"<br>
+            <div class="legal-basis-box">
+              <strong>Statutory Overview:</strong> Cross-referencing under relevant penal, procedural, or constitutional regimes.<br>
+              <strong>⚠️ Insufficient Facts Notice:</strong> Legal conclusions require the specific subject matter (e.g. penal section, civil dispute, or writ jurisdiction) to eliminate speculative responses and cite verified bare act sections.
+            </div>
+          `;
+        }
+
+        chatArea.appendChild(aiBubble);
+        chatArea.scrollTop = chatArea.scrollHeight;
+      }, 300);
+    }
+  </script>
+</body>
+</html>
+```

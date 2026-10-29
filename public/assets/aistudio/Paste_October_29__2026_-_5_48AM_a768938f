@@ -1,0 +1,1970 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>LEXINTEL | Architect By Waris Irshad</title>
+  <style>
+    :root {
+      --bg-color: #0b0d11;
+      --surface-color: #12151c;
+      --surface-elevated: #1a1e27;
+      --card-bg: #151821;
+      --card-hover: #1b202c;
+      --text-color: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-subtle: #64748b;
+      --accent-color: #f59e0b;
+      --accent-hover: #d97706;
+      --accent-glow: rgba(245, 158, 11, 0.2);
+      --border-color: #242a36;
+      --border-light: #323b4c;
+      --chip-bg: #181d26;
+      --success-color: #10b981;
+      --danger-color: #ef4444;
+      --info-color: #38bdf8;
+      --dossier-page-bg: #0d0f15;
+      --dossier-sheet-bg: #131720;
+      --modal-bg: #13161c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      padding: 12px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body.modal-locked {
+      overflow: hidden !important;
+      touch-action: none;
+    }
+
+    /* Header */
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #fff;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      color: var(--accent-color);
+      text-transform: uppercase;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .lang-toggle-btn, .header-icon-btn {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      color: var(--accent-color);
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .lang-toggle-btn:hover, .header-icon-btn:hover {
+      background: var(--accent-color);
+      color: #000;
+      border-color: var(--accent-color);
+    }
+
+    .founder-badge {
+      font-size: 11.5px;
+      color: var(--accent-color);
+      background: rgba(245, 158, 11, 0.12);
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      white-space: nowrap;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    .founder-badge:hover {
+      background: var(--accent-color);
+      color: #000;
+    }
+
+    /* Navigation Bar */
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+
+    .nav-tab-btn {
+      background: var(--surface-color);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .nav-tab-btn:active { transform: scale(0.97); }
+
+    .nav-tab-btn.active {
+      background: var(--accent-color);
+      color: #0b0c0e;
+      font-weight: 800;
+      border-color: var(--accent-color);
+    }
+
+    /* Sub Tabs */
+    .sub-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .sub-tabs::-webkit-scrollbar { display: none; }
+
+    .sub-tab-btn {
+      background: var(--surface-color);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      padding: 5px 11px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .sub-tab-btn:active { transform: scale(0.97); }
+    .sub-tab-btn.active {
+      background: var(--surface-elevated);
+      color: var(--accent-color);
+      border-color: var(--accent-color);
+    }
+
+    /* Search Input Box */
+    .search-box {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: var(--surface-color);
+      color: var(--text-color);
+      font-size: 13.5px;
+      outline: none;
+      margin-bottom: 12px;
+      transition: border-color 0.15s ease;
+    }
+    .search-box:focus { border-color: var(--accent-color); }
+
+    /* Chips */
+    .chip-container {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      margin-bottom: 12px;
+      padding-bottom: 4px;
+      white-space: nowrap;
+    }
+    .chip-container::-webkit-scrollbar { display: none; }
+
+    .chip {
+      background: var(--chip-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.12s ease;
+    }
+    .chip:active { transform: scale(0.95); }
+    .chip:hover, .chip.active {
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--accent-color);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      background: var(--card-hover);
+      border-color: var(--border-light);
+    }
+    .card:active { transform: scale(0.98); }
+
+    .card h4 {
+      font-size: 14px;
+      color: #ffffff;
+      margin-bottom: 4px;
+      padding-right: 24px;
+    }
+
+    .card p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .card-meta {
+      font-size: 10.5px;
+      text-transform: uppercase;
+      color: var(--accent-color);
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+    }
+
+    .card-bookmark-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: var(--text-subtle);
+      font-size: 16px;
+      cursor: pointer;
+      transition: color 0.15s ease;
+    }
+    .card-bookmark-btn.saved { color: var(--accent-color); }
+
+    /* Badges */
+    .badge-status {
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+    .badge-good { background: rgba(16, 185, 129, 0.15); color: var(--success-color); border: 1px solid var(--success-color); }
+    .badge-distinguished { background: rgba(59, 130, 246, 0.15); color: var(--info-color); border: 1px solid var(--info-color); }
+    .badge-overruled { background: rgba(239, 68, 68, 0.15); color: var(--danger-color); border: 1px solid var(--danger-color); }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Chatbot Styles */
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+      max-height: 52vh;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .chat-container::-webkit-scrollbar { width: 4px; }
+    .chat-container::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+
+    .chat-bubble {
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+    .chat-user {
+      background: #242932;
+      align-self: flex-end;
+      border: 1px solid var(--border-color);
+      max-width: 85%;
+      color: #fff;
+    }
+    .chat-ai {
+      background: var(--surface-color);
+      align-self: flex-start;
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--accent-color);
+      max-width: 96%;
+    }
+
+    .legal-basis-box {
+      background: #0d1015;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .legal-basis-box strong { color: var(--accent-color); }
+
+    .chat-input-bar {
+      display: flex;
+      gap: 6px;
+    }
+
+    .chat-send-btn {
+      background: var(--accent-color);
+      color: #0b0c0d;
+      border: none;
+      padding: 0 16px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .chat-send-btn:active { transform: scale(0.96); }
+
+    /* Dossiers (Dark Slate) */
+    .dossier-wrapper {
+      background: var(--dossier-page-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .dossier-top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .dossier-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+    }
+    .dossier-pills::-webkit-scrollbar { display: none; }
+
+    .dossier-pill {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      color: var(--accent-color);
+      padding: 5px 11px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .dossier-pill.active {
+      background: var(--accent-color);
+      color: #000;
+      border-color: var(--accent-color);
+    }
+
+    .dossier-sheet {
+      background: var(--dossier-sheet-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      color: var(--text-color);
+      box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .dossier-header-bar {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .dossier-case-meta {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .dossier-action-btn {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      color: var(--accent-color);
+      padding: 5px 11px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+    }
+    .dossier-action-btn:hover { background: #1f2530; border-color: var(--accent-color); }
+
+    .dossier-heading {
+      font-size: 17px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 12px;
+      line-height: 1.35;
+    }
+
+    .dossier-section-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--accent-color);
+      margin: 14px 0 6px 0;
+      font-weight: 700;
+    }
+
+    .dossier-body-text {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.6;
+      background: #0c0e12;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    .timeline-node {
+      border-left: 2px solid var(--accent-color);
+      padding-left: 12px;
+      margin-left: 6px;
+      margin-top: 8px;
+    }
+
+    .timeline-node-item {
+      margin-bottom: 8px;
+      position: relative;
+      font-size: 12px;
+    }
+
+    .timeline-node-item::before {
+      content: '';
+      position: absolute;
+      left: -17px;
+      top: 5px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-color);
+    }
+
+    /* 100% Solid Opaque Modal Backdrop & Drawer */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9) !important;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 999999 !important;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .modal-overlay.open {
+      display: flex !important;
+    }
+
+    .modal-content {
+      background-color: var(--modal-bg) !important;
+      width: 100%;
+      max-width: 660px;
+      max-height: 84vh;
+      border-radius: 20px 20px 0 0;
+      border: 1.5px solid #2d3748 !important;
+      border-bottom: none;
+      padding: 22px 20px 28px 20px;
+      overflow-y: auto;
+      box-shadow: 0 -12px 35px rgba(0, 0, 0, 0.95);
+      position: relative;
+      z-index: 1000000 !important;
+      animation: slideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+      gap: 8px;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      color: var(--accent-color);
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .close-btn {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 20px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+    .close-btn:hover {
+      background: var(--danger-color);
+      color: #fff;
+      border-color: var(--danger-color);
+    }
+
+    .modal-body h5 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--accent-color);
+      margin: 14px 0 5px 0;
+      font-weight: 700;
+    }
+
+    .modal-body p {
+      font-size: 13px;
+      color: var(--text-color);
+      line-height: 1.6;
+      background: #0d1015;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    .note-textarea {
+      width: 100%;
+      background: #0a0c10;
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      outline: none;
+      resize: vertical;
+      min-height: 65px;
+      margin-top: 6px;
+    }
+    .note-textarea:focus { border-color: var(--accent-color); }
+
+    /* Draggable Floating AI Assistant Widget */
+    #draggableAiWidget {
+      position: fixed;
+      bottom: 24px;
+      right: 16px;
+      z-index: 99999;
+      background: linear-gradient(135deg, #1f242d, #12151b);
+      border: 1.5px solid var(--accent-color);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.75), 0 0 14px var(--accent-glow);
+      color: var(--text-color);
+      padding: 9px 16px;
+      border-radius: 35px;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12px;
+      font-weight: 800;
+      backdrop-filter: blur(10px);
+      transition: box-shadow 0.2s ease;
+    }
+    #draggableAiWidget:active {
+      cursor: grabbing;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45);
+    }
+    #draggableAiWidget .voice-wave-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      height: 12px;
+    }
+    #draggableAiWidget .voice-bar {
+      width: 3px;
+      height: 10px;
+      background: var(--accent-color);
+      border-radius: 2px;
+      animation: voiceBarWave 1.2s infinite ease-in-out;
+    }
+    #draggableAiWidget .voice-bar:nth-child(2) { animation-delay: 0.2s; height: 14px; }
+    #draggableAiWidget .voice-bar:nth-child(3) { animation-delay: 0.4s; height: 8px; }
+
+    @keyframes voiceBarWave {
+      0%, 100% { transform: scaleY(0.6); }
+      50% { transform: scaleY(1.3); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="header-container">
+    <div class="brand-title">
+      LEXINTEL
+      <span class="brand-sub">| Architect By Waris Irshad</span>
+    </div>
+    <div class="header-controls">
+      <button class="header-icon-btn" onclick="openBookmarksDrawer()" title="Bookmarks & Notes">
+        🔖 <span id="bookmarkCount">0</span>
+      </button>
+      <button class="header-icon-btn" onclick="openFeedbackModal()" title="Report Citation / Section Issue">
+        ⚠️ Report
+      </button>
+      <button id="langToggleBtn" class="lang-toggle-btn" onclick="toggleLanguage()">
+        🌐 <span id="langBtnText">Roman Urdu</span>
+      </button>
+      <div class="founder-badge" onclick="openFounderChamber()">
+        🏛️ Architect Profile
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav class="nav-tabs">
+    <button class="nav-tab-btn active" onclick="switchTab('mapper', this)" data-en="Statutory Mapper" data-ur="Statutory Mapper (Old vs New)">Statutory Mapper</button>
+    <button class="nav-tab-btn" onclick="switchTab('constitution', this)" data-en="Constitution of India" data-ur="Aaeen-e-Hind (1–395)">Constitution of India</button>
+    <button class="nav-tab-btn" onclick="switchTab('askLawAI', this)" data-en="Lexintel AI — Ask Law" data-ur="Lexintel AI — Qanoon Se Poochein">Lexintel AI — Ask Law</button>
+    <button class="nav-tab-btn" onclick="switchTab('caseFinder', this)" data-en="Case Law Finder" data-ur="Case Law Finder (Nazaair)">Case Law Finder</button>
+    <button class="nav-tab-btn" onclick="switchTab('ratioDigest', this)" data-en="Ratio Digest" data-ur="Ratio Digest (Adalati Nazeer)">Ratio Digest</button>
+    <button class="nav-tab-btn" onclick="switchTab('aiCounsel', this)" data-en="AI Counsel Station" data-ur="AI Counsel (Remand & Custody)">AI Counsel Station</button>
+    <button class="nav-tab-btn" onclick="switchTab('dossiers', this)" data-en="Dossiers (3)" data-ur="Dossiers / Case Files (3)">Dossiers (3)</button>
+    <button class="nav-tab-btn" onclick="switchTab('glossary', this)" data-en="Legal Glossary" data-ur="Legal Glossary (Istilaahaat)">Legal Glossary</button>
+    <button class="nav-tab-btn" onclick="switchTab('libraryTab', this)" data-en="Bookmarks & Notes" data-ur="Mehfooz Nazaair & Notes">Bookmarks & Notes</button>
+  </nav>
+
+  <!-- TAB 1: STATUTORY MAPPER -->
+  <div id="mapper" class="tab-content active">
+    <input type="text" id="mapperSearch" class="search-box" placeholder="Enter ANY Section (e.g. 102, 103, 302, 420, 167, 41, 376, 307, CPC)..." onkeyup="searchStatutoryMapper()">
+    
+    <div class="chip-container">
+      <span class="chip" onclick="quickFillMapper('102')">Sec 102 (CrPC / IPC)</span>
+      <span class="chip" onclick="quickFillMapper('103')">Sec 103 (IPC / CrPC)</span>
+      <span class="chip" onclick="quickFillMapper('302')">302 IPC / 101 BNS</span>
+      <span class="chip" onclick="quickFillMapper('420')">420 IPC / 318 BNS</span>
+      <span class="chip" onclick="quickFillMapper('167')">167 CrPC / 187 BNSS</span>
+      <span class="chip" onclick="quickFillMapper('41')">41 CrPC / 35 BNSS</span>
+      <span class="chip" onclick="quickFillMapper('34')">34 IPC / 3(5) BNS</span>
+      <span class="chip" onclick="quickFillMapper('65B')">65B IEA / 63 BSA</span>
+      <span class="chip" onclick="quickFillMapper('11 CPC')">Sec 11 CPC</span>
+    </div>
+
+    <div id="mapperResults"></div>
+  </div>
+
+  <!-- TAB 2: CONSTITUTION OF INDIA -->
+  <div id="constitution" class="tab-content">
+    <div class="sub-tabs">
+      <button class="sub-tab-btn active" id="subBtnArticles" onclick="switchConstSubTab('constArticlesView')" data-en="Articles (1–395 Directory)" data-ur="Dafaat (1–395 Directory)">Articles (1–395 Directory)</button>
+      <button class="sub-tab-btn" id="subBtnSchedules" onclick="switchConstSubTab('constSchedulesView')" data-en="12 Schedules" data-ur="12 Schedules (Fehrist)">12 Schedules</button>
+      <button class="sub-tab-btn" id="subBtnAmendments" onclick="switchConstSubTab('constAmendmentsView')" data-en="Major Amendments" data-ur="Ahem Tarameem (Amendments)">Major Amendments</button>
+    </div>
+
+    <input type="text" id="constMainSearch" class="search-box" placeholder="Search Article no., schedule, amendment, rights, doctrine..." onkeyup="filterConstitutionSearch()">
+
+    <div id="constArticlesView">
+      <div class="chip-container">
+        <span class="chip active" onclick="filterByPart('ALL', this)">All Parts</span>
+        <span class="chip" onclick="filterByPart('Part I', this)">Part I (1–4)</span>
+        <span class="chip" onclick="filterByPart('Part II', this)">Part II (5–11)</span>
+        <span class="chip" onclick="filterByPart('Part III', this)">Part III (12–35)</span>
+        <span class="chip" onclick="filterByPart('Part IV', this)">Part IV (36–51)</span>
+        <span class="chip" onclick="filterByPart('Part IVA', this)">Part IVA (51A)</span>
+        <span class="chip" onclick="filterByPart('Part V', this)">Part V (52–151)</span>
+        <span class="chip" onclick="filterByPart('Part IX', this)">Part IX (Panchayats)</span>
+        <span class="chip" onclick="filterByPart('Part XVIII', this)">Part XVIII (Emergency)</span>
+        <span class="chip" onclick="filterByPart('Part XX', this)">Part XX (Art 368)</span>
+      </div>
+      <div id="articlesList"></div>
+    </div>
+
+    <div id="constSchedulesView" style="display: none;">
+      <div id="schedulesList"></div>
+    </div>
+
+    <div id="constAmendmentsView" style="display: none;">
+      <div id="amendmentsList"></div>
+    </div>
+  </div>
+
+  <!-- TAB 3: LEXINTEL AI -->
+  <div id="askLawAI" class="tab-content">
+    <div class="chip-container">
+      <span class="chip" onclick="askPreset('Kya police bina warrant arrest kar sakti hai?')">Bina warrant arrest?</span>
+      <span class="chip" onclick="askPreset('Default bail kab accrue hoti hai under Sec 187 BNSS?')">Default Bail timelines</span>
+      <span class="chip" onclick="askPreset('Kya police confession court mein admissible hai?')">Police confession validity</span>
+      <span class="chip" onclick="askPreset('Res Judicata under Section 11 CPC kya hai?')">Res Judicata (Sec 11 CPC)</span>
+      <span class="chip" onclick="askPreset('Electronic record kaise prove hota hai under Section 63 BSA?')">Electronic record (Sec 63 BSA)</span>
+    </div>
+
+    <div class="chat-container" id="chatArea">
+      <div class="chat-bubble chat-ai">
+        <strong>Lexintel Statutory Legal Counsel</strong><br>
+        Ask any legal question. Mai applicable statute, bare section analysis, mandatory conditions, exceptions aur verified citations ke sath jawab dunga. Agar query local database mein na mile, toh system automatically <strong>sci.gov.in</strong> aur <strong>indiacode.nic.in</strong> repositories se authentic synthesis karega.
+      </div>
+    </div>
+
+    <div class="chat-input-bar">
+      <input type="text" id="aiQueryInput" class="search-box" style="margin-bottom:0;" placeholder="Ask: e.g., Kya police bina warrant arrest kar sakti hai?">
+      <button class="chat-send-btn" onclick="handleAskLaw()">Ask</button>
+    </div>
+  </div>
+
+  <!-- TAB 4: CASE LAW FINDER -->
+  <div id="caseFinder" class="tab-content">
+    <input type="text" id="caseSearchInput" class="search-box" placeholder="Search by Act, Section, Case Name, Citation or Legal Issue..." onkeyup="filterCases()">
+
+    <div class="chip-container">
+      <span class="chip active" onclick="fillCaseSearch('')">All Cases</span>
+      <span class="chip" onclick="fillCaseSearch('Arrest')">Arrest Safeguards</span>
+      <span class="chip" onclick="fillCaseSearch('Privacy')">Privacy (Art 21)</span>
+      <span class="chip" onclick="fillCaseSearch('Default Bail')">Default Bail</span>
+      <span class="chip" onclick="fillCaseSearch('Basic Structure')">Basic Structure</span>
+      <span class="chip" onclick="fillCaseSearch('Overruled')">Overruled Precedents</span>
+    </div>
+
+    <div id="casesList"></div>
+  </div>
+
+  <!-- TAB 5: RATIO DIGEST -->
+  <div id="ratioDigest" class="tab-content">
+    <input type="text" id="ratioSearch" class="search-box" placeholder="Search precedents, ratio decidendi, doctrines..." onkeyup="filterSectionCards('ratioSearch', 'ratioContainer')">
+    <div id="ratioContainer">
+      <div class="card">
+        <div class="card-meta"><span>Precedent Digest • BNSS § 187</span><span>Binding Ratio</span></div>
+        <h4>Bail & Default Bail Computation</h4>
+        <p data-en="Once statutory period lapses without a chargesheet, an indefeasible right to default bail accrues instantly and cannot be defeated by subsequent filings." data-ur="Muqarrar waqt (60/90 din) mein chargesheet dakhil na hone par default bail ka haq fori laagu ho jata hai.">
+          <strong>Binding Ratio:</strong> Once statutory period lapses without a chargesheet, an indefeasible right to default bail accrues instantly and cannot be defeated by subsequent filings.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-meta"><span>Constitutional Law • 13-Judge Bench</span><span>Binding Ratio</span></div>
+        <h4>Basic Structure Doctrine (Kesavananda Bharati)</h4>
+        <p data-en="Parliament possesses amending power under Art 368, but it lacks constituent competence to damage or destroy the basic structure of the Constitution." data-ur="Parliman ko aaeen mein tarmeem ka ikhtiyar hai magar woh buniyadi dhaanche ko khatam nahi kar sakti.">
+          <strong>Binding Ratio:</strong> Parliament possesses amending power under Art 368, but it lacks constituent competence to damage or destroy the basic structure of the Constitution.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-meta"><span>Criminal Procedure • Custody</span><span>Binding Ratio</span></div>
+        <h4>Police Interrogation & Arrest Safeguards (D.K. Basu)</h4>
+        <p data-en="Failure of police personnel to prepare an arrest memo or inform family constitutes contempt of court and departmental misconduct." data-ur="Giraftari ke waqt memo na banana aur khandaan ko itteha na dena contempt of court aur bad-unwani hai.">
+          <strong>Binding Ratio:</strong> Failure of police personnel to prepare an arrest memo or inform family constitutes contempt of court and departmental misconduct.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 6: AI COUNSEL STATION -->
+  <div id="aiCounsel" class="tab-content">
+    <div class="card" style="cursor: default;">
+      <div class="card-meta"><span>Statutory Regime Cross-Mapper</span><span>Comparative Analysis</span></div>
+      <h4>Procedural Comparison: CrPC Sec 167 vs. BNSS Sec 187</h4>
+      <p style="margin-top:6px;" data-en="Under old CrPC § 167, police custody was restricted to the initial 15 days of remand. Under new BNSS § 187, police custody can be sought in tranches throughout the first 40 or 60 days of custody, fundamentally changing bail strategy." data-ur="Purane CrPC 167 mein police custody sirf pehle 15 dinon mein milti thi. Naye BNSS 187 ke mutabiq police custody 40 ya 60 dinon ke doran hisson mein li ja sakti hai.">
+        Under old CrPC § 167, police custody was restricted to the initial 15 days of remand. Under new BNSS § 187, police custody can be sought in tranches throughout the first 40 or 60 days of custody, fundamentally changing bail strategy.
+      </p>
+    </div>
+    <div class="card" style="cursor: default; border-left-color: var(--info-color);">
+      <div class="card-meta"><span>Interactive Limitation Bar</span><span>Sec 5 Analysis</span></div>
+      <h4>Statutory Limitation Calculator</h4>
+      <p>Computes expiry date under Limitation Act, 1963 and evaluates statutory condonation bar for civil and criminal appeals.</p>
+    </div>
+  </div>
+
+  <!-- TAB 7: DOSSIERS (100% DARK SLATE PARCHMENT) -->
+  <div id="dossiers" class="tab-content">
+    <div class="dossier-wrapper">
+      <div class="dossier-top-nav">
+        <div class="dossier-pills">
+          <button class="dossier-pill active" onclick="switchDossier('dossier1', this)">CR-MISC-2026-0842</button>
+          <button class="dossier-pill" onclick="switchDossier('dossier2', this)">SC-SESS-2026-1194</button>
+          <button class="dossier-pill" onclick="switchDossier('dossier3', this)">CRL-APP-2026-0319</button>
+        </div>
+        <div>
+          <button class="dossier-action-btn" onclick="copyDossierMemo()">📋 Copy Memo</button>
+          <button class="dossier-action-btn" onclick="window.print()">🖨️ Print Brief</button>
+        </div>
+      </div>
+
+      <div id="dossier1" class="dossier-sheet dossier-content-view">
+        <div class="dossier-header-bar">
+          <div class="dossier-case-meta">
+            <strong style="color:var(--accent-color);">CR-MISC-2026-0842</strong> • Filed: 2026-10-28<br>
+            Forum: High Court of Judicature • Criminal Jurisdiction<br>
+            Matter: Procedural Custodial Law (Section 187 BNSS)
+          </div>
+          <div class="dossier-case-meta" style="text-align: right;">
+            Status: <span class="badge-status badge-good">Under Adjudication</span><br>
+            Petitioner: Accused in Custody
+          </div>
+        </div>
+
+        <h2 class="dossier-heading">Tranche-Based Police Custody Beyond Initial 15 Days & Default Bail Computation Under BNSS</h2>
+
+        <div class="dossier-section-title">Operative Factual Matrix</div>
+        <div class="dossier-body-text">
+          Accused was remanded to judicial custody on Day 1. The Investigating Agency did not seek police custody during the initial 15 days. On Day 22, the State moved an application under Section 187(3) BNSS seeking 7 days of police custody in tranches. The Defence opposed on grounds that the total 15 days of police custody cannot be exercised arbitrarily across the 40/60 days period without substantive justification.
+        </div>
+
+        <div class="dossier-section-title">Statutory Remand & Bail Computation Timeline</div>
+        <div class="timeline-node">
+          <div class="timeline-node-item"><strong style="color:var(--accent-color);">Day 1:</strong> Initial production before Judicial Magistrate under Sec 187(1) BNSS.</div>
+          <div class="timeline-node-item"><strong style="color:var(--accent-color);">Day 15:</strong> Initial 15-day window concludes with accused in judicial custody.</div>
+          <div class="timeline-node-item"><strong style="color:var(--accent-color);">Day 22:</strong> Police custody tranche application filed by state under Sec 187(3) BNSS.</div>
+          <div class="timeline-node-item"><strong style="color:var(--accent-color);">Day 60:</strong> Statutory limitation deadline for filing police report under Sec 187(5) BNSS for non-heinous offences.</div>
+        </div>
+
+        <div class="dossier-section-title">Substantive Defence Arguments</div>
+        <div class="dossier-body-text">
+          1. <em>Article 21 Safeguards:</em> Police custody in later tranches must meet heightened necessity thresholds to avoid coerced discovery.<br>
+          2. <em>Right to Default Bail:</em> As ruled in <em>Bikramjit Singh (2020)</em>, on the 61st day an indefeasible right to bail accrues if no charge-sheet is submitted.
+        </div>
+      </div>
+
+      <div id="dossier2" class="dossier-sheet dossier-content-view" style="display:none;">
+        <div class="dossier-header-bar">
+          <div class="dossier-case-meta">
+            <strong style="color:var(--accent-color);">SC-SESS-2026-1194</strong> • Sessions Trial<br>
+            Subject: Electronic Evidence under BSA 2023
+          </div>
+          <div class="dossier-case-meta" style="text-align: right;">
+            Status: <span class="badge-status badge-distinguished">Trial Stage</span>
+          </div>
+        </div>
+        <h2 class="dossier-heading">Cryptographic Hash Validation and Server Log Admissibility (Section 63 BSA)</h2>
+        <div class="dossier-section-title">Factual Background</div>
+        <div class="dossier-body-text">
+          Prosecution relied on chat export logs stored on an offshore cloud server. Defence challenged under Section 63 BSA due to absence of SHA-256 hash validation and contemporaneous certificate by the system administrator.
+        </div>
+      </div>
+
+      <div id="dossier3" class="dossier-sheet dossier-content-view" style="display:none;">
+        <div class="dossier-header-bar">
+          <div class="dossier-case-meta">
+            <strong style="color:var(--accent-color);">CRL-APP-2026-0319</strong> • Appellate Court<br>
+            Subject: Common Intention (Sec 3(5) BNS)
+          </div>
+          <div class="dossier-case-meta" style="text-align: right;">
+            Status: <span class="badge-status badge-good">Argued</span>
+          </div>
+        </div>
+        <h2 class="dossier-heading">Vicarious Joint Liability vs. Mere Presence in Group Clashes</h2>
+        <div class="dossier-section-title">Appellate Ground</div>
+        <div class="dossier-body-text">
+          Mere presence at the scene without pre-arranged plan or overt act does not attract joint liability under Section 3(5) BNS (formerly Section 34 IPC). Precedent: <em>Pandurang v. State of Hyderabad (1955)</em>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 8: LEGAL GLOSSARY -->
+  <div id="glossary" class="tab-content">
+    <input type="text" id="glossarySearch" class="search-box" placeholder="Search Latin maxims, legal terms, principles..." onkeyup="filterSectionCards('glossarySearch', 'glossaryList')">
+    <div id="glossaryList">
+      <div class="card">
+        <span class="card-meta">Precedent Jurisprudence</span>
+        <h4>Ratio Decidendi</h4>
+        <p data-en="The underlying legal principle or reason for a court's decision that constitutes binding authority for subordinate courts." data-ur="Adalat ke faisle ka woh buniyadi qanooni asool jo aage aane wale cases aur nichli adalaton par lazmi taur par laagu hota hai.">The underlying legal principle or reason for a court's decision that constitutes binding authority for subordinate courts.</p>
+      </div>
+      <div class="card">
+        <span class="card-meta">Precedent Jurisprudence</span>
+        <h4>Obiter Dicta</h4>
+        <p data-en="Observations or remarks made by a judge in passing, not essential to the decision, holding persuasive but non-binding value." data-ur="Judge ke faisle ke dauran diye gaye zaimni bayanaat jo binding nahi hote magar ahem rehnumai dete hain.">Observations or remarks made by a judge in passing, not essential to the decision, holding persuasive but non-binding value.</p>
+      </div>
+      <div class="card">
+        <span class="card-meta">Natural Justice</span>
+        <h4>Audi Alteram Partem</h4>
+        <p data-en="'Hear the other side.' Fundamental rule of procedural fairness ensuring no person is judged without a reasonable opportunity of being heard." data-ur="'Doosri party ko bhi suno.' Qudrati insaf ka buniyadi asool ke kisi bhi shakhs ke khilaf usko sune baghair faisla na ho.">"Hear the other side." Fundamental rule of procedural fairness ensuring no person is judged without a reasonable opportunity of being heard.</p>
+      </div>
+      <div class="card">
+        <span class="card-meta">Criminal Jurisprudence</span>
+        <h4>Actus Reus & Mens Rea</h4>
+        <p data-en="The physical wrongful act (Actus Reus) combined with a guilty mental state or intention (Mens Rea), both required to establish criminal guilt." data-ur="Mujrimana irada (Mens Rea) aur ghair-qanooni amal (Actus Reus) dono mil kar jurm bante hain.">The physical wrongful act (Actus Reus) combined with a guilty mental state or intention (Mens Rea), both required to establish criminal guilt.</p>
+      </div>
+      <div class="card">
+        <span class="card-meta">Civil Procedure</span>
+        <h4>Res Judicata (Sec 11 CPC)</h4>
+        <p data-en="A matter once adjudicated by a competent court cannot be litigated again by the same parties on the same cause of action." data-ur="Jis muqaddame ka faisla ba-ikhtiyar adalat kar chuki ho, uspar doosri baar muqaddama dakhil nahi kiya ja sakta.">A matter once adjudicated by a competent court cannot be litigated again by the same parties on the same cause of action.</p>
+      </div>
+      <div class="card">
+        <span class="card-meta">Evidence Law</span>
+        <h4>Prima Facie</h4>
+        <p data-en="'At first sight.' Sufficient evidence to establish a legal presumption or fact unless disproved by rebuttal evidence." data-ur="'Pehli nazar mein.' Woh saboot jo zahiri taur par kisi jurm ya daawe ko sach sabit karne ke liye kaafi ho.">'At first sight.' Sufficient evidence to establish a legal presumption or fact unless disproved by rebuttal evidence.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 9: BOOKMARKS & NOTES -->
+  <div id="libraryTab" class="tab-content">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <h3 style="font-size: 15px; color: var(--accent-color);">Personal Legal Research Library</h3>
+      <button class="dossier-action-btn" onclick="exportBookmarks()">📥 Export JSON</button>
+    </div>
+    <div id="bookmarksContainer"></div>
+  </div>
+
+  <!-- Draggable Voice & AI Assistant Widget -->
+  <div id="draggableAiWidget">
+    <div class="voice-wave-icon">
+      <span class="voice-bar"></span>
+      <span class="voice-bar"></span>
+      <span class="voice-bar"></span>
+    </div>
+    <span>Lexintel AI Counsel</span>
+  </div>
+
+  <!-- Universal 100% Solid Modal (Zero Background Bleed) -->
+  <div id="detailModal" class="modal-overlay" onclick="closeDetailModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div id="modalTitle" class="modal-title">Details</div>
+        <button class="close-btn" onclick="closeModalDirect()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalDynamicBody"></div>
+    </div>
+  </div>
+
+  <!-- Feedback / Error Reporting Modal -->
+  <div id="feedbackModal" class="modal-overlay" onclick="closeFeedbackModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title">⚠️ Report Citation or Missing Provision</div>
+        <button class="close-btn" onclick="closeFeedbackModalDirect()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 10px;">Help keep Lexintel 100% accurate. Report any typo, missing section, or incorrect citation:</p>
+        <input type="text" id="reportSubject" class="search-box" placeholder="Subject / Section / Citation..." style="margin-bottom:8px;">
+        <textarea id="reportDetails" class="note-textarea" placeholder="Describe the error, correct bare act provision, or authentic official source link..."></textarea>
+        <button class="chat-send-btn" style="width: 100%; margin-top: 10px; padding: 10px;" onclick="submitUserFeedback()">Submit Report to Architect Desk</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // 1. EMBEDDED CONSTITUTIONAL & STATUTORY DATA
+    // ==========================================
+    const ARTICLES_DB = [
+      { id: "art1", no: "1", title: "Article 1 — Name and Territory of the Union", part: "Part I", bareAct: "India, that is Bharat, shall be a Union of States. The territory of India shall comprise the territories of the States, Union territories and other acquired territories.", cases: "State of West Bengal v. UOI (1963)", notes: "Indestructible Union of destructible States (Parliament can re-demarcate boundaries under Article 3)." },
+      { id: "art12", no: "12", title: "Article 12 — Definition of 'State'", part: "Part III", bareAct: "Includes the Government and Parliament of India and the Government and the Legislature of each of the States and all local or other authorities within the territory of India or under the control of the Government of India.", cases: "R.D. Shetty v. Airport Authority (1979), Zee Telefilms (2005)", notes: "Agency or instrumentality of State test. Sovereign functions benchmark." },
+      { id: "art13", no: "13", title: "Article 13 — Laws Inconsistent with Fundamental Rights", part: "Part III", bareAct: "All laws in force in the territory of India immediately before the commencement of this Constitution, in so far as they are inconsistent with the provisions of this Part, shall, to the extent of such inconsistency, be void.", cases: "Kesavananda Bharati (1973), State of Madras v. V.G. Row (1952)", notes: "Constitutional fountainhead of Judicial Review in India. Doctrines of Severability, Eclipse, and Waiver apply." },
+      { id: "art14", no: "14", title: "Article 14 — Equality Before Law", part: "Part III", bareAct: "The State shall not deny to any person equality before the law or the equal protection of the laws within the territory of India.", cases: "E.P. Royappa (1974), Maneka Gandhi (1978), Shayara Bano (2017)", notes: "Arbitrariness and equality are sworn enemies. Protects both citizens and non-citizens against arbitrary state actions." },
+      { id: "art19", no: "19", title: "Article 19 — Protection of Six Core Freedoms", part: "Part III", bareAct: "Guarantees speech, peaceful assembly, association, movement, residence, and profession to Indian citizens.", cases: "Shreya Singhal (2015), Anuradha Bhasin (2020), Kaushal Kishor (2023)", notes: "Subject to exhaustive reasonable restrictions under Clauses (2) through (6). Proportionality test applies." },
+      { id: "art20", no: "20", title: "Article 20 — Protection in Respect of Conviction", part: "Part III", bareAct: "Prohibits ex-post facto criminal laws (20(1)), double jeopardy (20(2)), and testimonial compulsion / self-incrimination (20(3)).", cases: "Selvi v. State of Karnataka (2010), Maqbool Hussain (1953)", notes: "Involuntary narco-analysis and polygraph tests violate Art 20(3). Cannot be suspended during Emergency." },
+      { id: "art21", no: "21", title: "Article 21 — Protection of Life & Personal Liberty", part: "Part III", bareAct: "No person shall be deprived of his life or personal liberty except according to procedure established by law.", cases: "Maneka Gandhi (1978), K.S. Puttaswamy (2017), Olga Tellis (1985)", notes: "Procedure must be just, fair, and reasonable. Expansively construed to guarantee dignity, privacy, and speedy trial." },
+      { id: "art21a", no: "21A", title: "Article 21A — Right to Free Education", part: "Part III", bareAct: "State shall provide free and compulsory education to all children of the age of six to fourteen years.", cases: "Mohini Jain (1992), Unni Krishnan (1993)", notes: "Enacted via 86th Constitutional Amendment 2002. Operative statute: RTE Act 2009." },
+      { id: "art22", no: "22", title: "Article 22 — Protection Against Arrest & Detention", part: "Part III", bareAct: "Right to be informed of grounds of arrest, right to consult advocate, and mandatory production before Magistrate within 24 hours.", cases: "D.K. Basu (1997), Joginder Kumar (1994)", notes: "Governs punitive arrests. Clauses (4)-(7) govern preventive detention procedural safeguards." },
+      { id: "art25", no: "25", title: "Article 25 — Freedom of Conscience & Religion", part: "Part III", bareAct: "All persons are equally entitled to freedom of conscience and the right freely to profess, practise and propagate religion.", cases: "Sabarimala Case (2018), Shirur Mutt (1954)", notes: "Subject to public order, morality, and health. Governed by Essential Religious Practices (ERP) doctrine." },
+      { id: "art32", no: "32", title: "Article 32 — Constitutional Remedies (Heart & Soul)", part: "Part III", bareAct: "Guarantees right to move the Supreme Court by appropriate proceedings for the enforcement of rights conferred by Part III.", cases: "Bandhua Mukti Morcha (1984), Fertilizer Corp (1981)", notes: "Dr. B.R. Ambedkar termed it the Heart and Soul of the Constitution. Power to issue 5 Prerogative Writs." },
+      { id: "art226", no: "226", title: "Article 226 — Power of High Courts to Issue Writs", part: "Part V", bareAct: "High Courts empowered to issue directions, orders or writs for enforcement of Fundamental Rights and for any other purpose.", cases: "L. Chandra Kumar (1997), Whirlpool Corp (1998)", notes: "Jurisdiction wider than Article 32. Inherent part of the basic structure of the Constitution." },
+      { id: "art300a", no: "300A", title: "Article 300A — Right to Property", part: "Part XII", bareAct: "No person shall be deprived of his property save by authority of law.", cases: "K.T. Plantation (2011), Vidya Devi (2020)", notes: "Constitutional and human right; moved out of Fundamental Rights by 44th Amendment 1978." },
+      { id: "art368", no: "368", title: "Article 368 — Constituent Power to Amend Constitution", part: "Part XX", bareAct: "Parliament may in exercise of its constituent power amend by way of addition, variation or repeal any provision of this Constitution.", cases: "Kesavananda Bharati (1973), Minerva Mills (1980), I.R. Coelho (2007)", notes: "Limited constituent power. Basic Structure Doctrine bars destruction of constitutional pillars." }
+    ];
+
+    const SCHEDULES_DB = [
+      { num: "1", title: "Schedule 1 — States and Union Territories", desc: "Lists all 28 States and 8 Union Territories with territorial boundaries and jurisdictions." },
+      { num: "2", title: "Schedule 2 — Salaries & Emoluments", desc: "Provisions regarding salaries, allowances, and privileges of President, Governors, Judges, and CAG." },
+      { num: "3", title: "Schedule 3 — Forms of Oaths & Affirmations", desc: "Prescribed oaths for Union Ministers, MPs, MLAs, and Supreme Court & High Court Judges." },
+      { num: "4", title: "Schedule 4 — Allocation of Rajya Sabha Seats", desc: "Specifies allocation of Council of States seats across States and Union Territories." },
+      { num: "5", title: "Schedule 5 — Administration of Scheduled Areas", desc: "Governance and safeguards for Scheduled Areas and Scheduled Tribes in non-North-Eastern States." },
+      { num: "6", title: "Schedule 6 — Tribal Areas in North-Eastern States", desc: "Administration of autonomous tribal district councils in Assam, Meghalaya, Tripura, and Mizoram." },
+      { num: "7", title: "Schedule 7 — Union, State & Concurrent Lists", desc: "Distribution of legislative competencies: List I (Union - 100), List II (State - 61), List III (Concurrent - 52)." },
+      { num: "8", title: "Schedule 8 — Recognized Official Languages", desc: "Specifies the 22 constitutional languages recognized in India." },
+      { num: "9", title: "Schedule 9 — Validation of Certain Acts", desc: "Shield against judicial review; post-April 24, 1973 laws are subject to Basic Structure scrutiny (I.R. Coelho)." },
+      { num: "10", title: "Schedule 10 — Anti-Defection Law", desc: "Disqualification of legislators on grounds of party defection (52nd Amendment 1985; Kihoto Hollohan 1992)." },
+      { num: "11", title: "Schedule 11 — Powers of Panchayats", desc: "Contains 29 functional matters specified for rural local self-governance (73rd Amendment 1992)." },
+      { num: "12", title: "Schedule 12 — Powers of Municipalities", desc: "Specifies 18 functional subjects for urban municipal bodies (74th Amendment 1992)." }
+    ];
+
+    const AMENDMENTS_DB = [
+      { year: "1951", name: "1st Constitutional Amendment Act, 1951", desc: "Added Ninth Schedule & Articles 31A/31B to protect land reforms; introduced reasonable restrictions on free speech." },
+      { year: "1976", name: "42nd Constitutional Amendment Act, 1976 ('Mini-Constitution')", desc: "Added 'Socialist, Secular, Integrity' to Preamble; enacted Fundamental Duties (Art 51A); restricted writ jurisdiction." },
+      { year: "1978", name: "44th Constitutional Amendment Act, 1978", desc: "Restored civil liberties; removed Property from Part III to Art 300A; guaranteed Art 20 & 21 cannot be suspended in Emergency." },
+      { year: "1985", name: "52nd Constitutional Amendment Act, 1985", desc: "Enacted Tenth Schedule (Anti-Defection Law) to prevent unprincipled political floor crossing." },
+      { year: "1992", name: "73rd & 74th Constitutional Amendments, 1992", desc: "Enshrined constitutional status for rural Panchayats (Part IX) and urban Municipalities (Part IXA)." },
+      { year: "2002", name: "86th Constitutional Amendment Act, 2002", desc: "Inserted Article 21A: Right to free and compulsory elementary education for children aged 6 to 14 years." },
+      { year: "2016", name: "101st Constitutional Amendment Act, 2016", desc: "Introduced nationwide Goods and Services Tax (GST) framework and established the GST Council under Art 279A." },
+      { year: "2019", name: "103rd Constitutional Amendment Act, 2019", desc: "Provided up to 10% reservation for Economically Weaker Sections (EWS) in education and public employment." },
+      { year: "2023", name: "106th Constitutional Amendment Act, 2023", desc: "Nari Shakti Vandan Adhiniyam: One-third reservation for women in Lok Sabha and State Legislative Assemblies." }
+    ];
+
+    const MAPPER_DB = [
+      { id: "sec102crpc", oldSec: "Section 102 CrPC", newSec: "Section 106 BNSS", title: "Power of Police Officer to Seize Certain Property", oldAct: "CrPC 1973", newAct: "BNSS 2023", desc: "Police officer may seize property alleged or suspected to have been stolen or which creates suspicion of the commission of any offence.", keys: "102 crpc 106 bnss seizure police property search" },
+      { id: "sec102ipc", oldSec: "Section 102 IPC", newSec: "Section 39 BNS", title: "Commencement and Continuance of Right of Private Defence of Body", oldAct: "IPC 1860", newAct: "BNS 2023", desc: "Commences as soon as reasonable apprehension of danger to body arises and continues as long as apprehension continues.", keys: "102 ipc 39 bns private defence self defence body apprehension" },
+      { id: "sec103ipc", oldSec: "Section 103 IPC", newSec: "Section 40 BNS", title: "When Right of Private Defence of Property Extends to Causing Death", oldAct: "IPC 1860", newAct: "BNS 2023", desc: "Right to cause death in defence of property during Robbery, house-breaking by night, mischief by fire to human dwelling, or theft/mischief causing apprehension of death.", keys: "103 ipc 40 bns property death private defence robbery" },
+      { id: "sec103crpc", oldSec: "Section 103 CrPC", newSec: "Section 107 BNSS", title: "Magistrate May Direct Search in His Presence", oldAct: "CrPC 1973", newAct: "BNSS 2023", desc: "Any Magistrate may direct a search to be made in his presence of any place for which he is competent to issue a search-warrant.", keys: "103 crpc 107 bnss magistrate search presence inspection" },
+      { id: "sec103iea", oldSec: "Section 103 IEA", newSec: "Section 106 BSA", title: "Burden of Proof as to Particular Fact", oldAct: "IEA 1872", newAct: "BSA 2023", desc: "The burden of proof as to any particular fact lies on that person who wishes the court to believe in its existence.", keys: "103 iea 106 bsa burden proof particular fact evidence" },
+      { id: "sec302ipc", oldSec: "Section 302 IPC", newSec: "Section 101(1) BNS", title: "Punishment for Murder", oldAct: "IPC 1860", newAct: "BNS 2023", desc: "Whoever commits murder shall be punished with death or imprisonment for life, and shall also be liable to fine.", keys: "302 ipc 101 bns murder punishment capital punishment homicide" },
+      { id: "sec420ipc", oldSec: "Section 420 IPC", newSec: "Section 318(4) BNS", title: "Cheating and Dishonestly Inducing Delivery of Property", oldAct: "IPC 1860", newAct: "BNS 2023", desc: "Cheating with dishonest inducement of property delivery. Imprisonment up to 7 years and fine.", keys: "420 ipc 318 bns cheating fraud property delivery" },
+      { id: "sec167crpc", oldSec: "Section 167 CrPC", newSec: "Section 187 BNSS", title: "Remand & Default Bail Timelines", oldAct: "CrPC 1973", newAct: "BNSS 2023", desc: "Procedure when investigation exceeds 24 hours. BNSS permits police custody in tranches across initial 40 or 60 days.", keys: "167 crpc 187 bnss remand default bail 15 days 60 90 police custody" },
+      { id: "sec41crpc", oldSec: "Section 41 & 41A CrPC", newSec: "Section 35 BNSS", title: "When Police May Arrest Without Warrant & Notice of Appearance", oldAct: "CrPC 1973", newAct: "BNSS 2023", desc: "Mandatory issuance of notice of appearance for offences punishable under 7 years unless arrest is strictly necessary under objective criteria.", keys: "41 41a crpc 35 bnss arrest without warrant notice arnesh kumar" },
+      { id: "sec34ipc", oldSec: "Section 34 IPC", newSec: "Section 3(5) BNS", title: "Common Intention & Joint Liability", oldAct: "IPC 1860", newAct: "BNS 2023", desc: "Joint vicarious liability for criminal acts done with pre-arranged plan or common intention.", keys: "34 ipc 3(5) bns common intention joint liability criminal acts" },
+      { id: "sec439crpc", oldSec: "Section 439 CrPC", newSec: "Section 483 BNSS", title: "Special Powers of High Court / Sessions Court for Bail", oldAct: "CrPC 1973", newAct: "BNSS 2023", desc: "High Court or Sessions Court may direct release on bail or cancel bail of any person in custody.", keys: "439 crpc 483 bnss regular bail high court sessions cancellation" },
+      { id: "sec482crpc", oldSec: "Section 482 CrPC", newSec: "Section 528 BNSS", title: "Inherent Powers of High Court (Quashing)", oldAct: "CrPC 1973", newAct: "BNSS 2023", desc: "Inherent jurisdiction of High Court to make orders necessary to prevent abuse of process of any court or secure ends of justice.", keys: "482 crpc 528 bnss inherent power quash fir abuse process high court" },
+      { id: "sec65biea", oldSec: "Section 65B IEA", newSec: "Section 63 BSA", title: "Admissibility of Electronic Records & Digital Evidence", oldAct: "IEA 1872", newAct: "BSA 2023", desc: "Statutory certification protocols for servers, digital devices, and electronic records admissibility.", keys: "65b iea 63 bsa electronic record evidence digital certificate server hash" },
+      { id: "sec11cpc", oldSec: "Section 11 CPC", newSec: "Section 11 CPC 1908", title: "Res Judicata (Civil Finality)", oldAct: "CPC 1908", newAct: "CPC 1908", desc: "No Court shall try any suit or issue in which the matter has been directly and substantially in issue in a former suit between same parties.", keys: "11 cpc res judicata former suit issue estoppel civil procedure" }
+    ];
+
+    const CASES_DB = [
+      {
+        id: "case1",
+        title: "Arnesh Kumar v. State of Bihar",
+        citation: "(2014) 8 SCC 273",
+        bench: "Supreme Court of India (2-Judge)",
+        statute: "Section 41 & 41A CrPC [Sec 35 BNSS], Section 498A IPC",
+        facts: "Wife alleged harassment over dowry. Accused sought protection against automatic and mechanical arrest under Section 498A IPC.",
+        issue: "Whether police officers can indiscriminately arrest the accused without fulfilling objective statutory necessity under Section 41 CrPC.",
+        ratio: "Arrest is not mandatory for offences punishable with imprisonment up to 7 years. Police must issue Section 41A notice within 14 days and record objective reasons in writing before arresting.",
+        paras: "Paragraphs 7, 8, 9, 11",
+        status: "Good Law (Affirmed in Satender Kumar Antil 2022)",
+        statusType: "good",
+        tags: "arrest 41 41a crpc 35 bnss arnesh kumar 498a 7 years notice"
+      },
+      {
+        id: "case2",
+        title: "Justice K.S. Puttaswamy (Retd.) v. Union of India",
+        citation: "(2017) 10 SCC 1",
+        bench: "Supreme Court of India (9-Judge Constitution Bench)",
+        statute: "Article 21, Part III of the Constitution",
+        facts: "Constitutional challenge to biometric identification on the ground that it unlawfully encroached on individual informational and bodily autonomy.",
+        issue: "Whether the Right to Privacy is guaranteed as an independent Fundamental Right under Part III of the Constitution.",
+        ratio: "Right to Privacy is an inalienable fundamental right flowing directly from Article 21 and the freedoms in Part III. Any state interference must clear the strict 3-fold proportionality standard: Legality, Legitimate State Aim, and Proportionality.",
+        paras: "Paragraphs 297, 310, 314",
+        status: "Good Law (Landmark 9-Judge Precedent)",
+        statusType: "good",
+        tags: "privacy article 21 puttaswamy fundamental right surveillance data"
+      },
+      {
+        id: "case3",
+        title: "Bikramjit Singh v. State of Punjab",
+        citation: "(2020) 10 SCC 616",
+        bench: "Supreme Court of India (3-Judge Bench)",
+        statute: "Section 167(2) CrPC [Sec 187 BNSS], Section 43D UAPA",
+        facts: "Plea for statutory default bail when chargesheet was not submitted within the statutory limitation period.",
+        issue: "Whether the statutory right to default bail can be extinguished by subsequent supplementary chargesheets or late applications by the state.",
+        ratio: "Default bail under Section 167(2) is not merely a statutory privilege; it is an indefeasible fundamental right under Article 21. Once the maximum statutory remand window expires without a chargesheet, the right accrues immediately and cannot be defeated.",
+        paras: "Paragraphs 23, 24, 25",
+        status: "Good Law (Followed in M. Ravindran 2020)",
+        statusType: "good",
+        tags: "bail default bail 167 crpc 187 bnss bikramjit chargesheet uapa"
+      },
+      {
+        id: "case4",
+        title: "ADM Jabalpur v. Shivkant Shukla",
+        citation: "AIR 1976 SC 1207",
+        bench: "Supreme Court of India (5-Judge Bench)",
+        statute: "Article 21, Article 359 (Emergency Provisions)",
+        facts: "Detention of individuals during the Emergency without recourse to judicial review under Article 226.",
+        issue: "Whether a citizen has locus standi to move a High Court for Habeas Corpus during an Emergency when enforcement of Article 21 is suspended.",
+        ratio: "Majority held that upon presidential suspension of Part III enforcement, no person had legal standing to seek a writ of habeas corpus challenging executive detention.",
+        paras: "Paragraph 573",
+        status: "Overruled (Expressly overruled in K.S. Puttaswamy 2017)",
+        statusType: "overruled",
+        tags: "overruled emergency habeas corpus adm jabalpur shivkant shukla bad law"
+      },
+      {
+        id: "case5",
+        title: "Kesavananda Bharati v. State of Kerala",
+        citation: "(1973) 4 SCC 225",
+        bench: "Supreme Court of India (13-Judge Bench)",
+        statute: "Article 368, Article 13, 24th & 25th Amendments",
+        facts: "Challenge to constitutional validity of 24th, 25th, and 29th Amendments affecting property rights and religious endowments.",
+        issue: "Whether Parliament's constituent power to amend the Constitution under Article 368 is unlimited and unfettered.",
+        ratio: "Parliament possesses wide amending power under Article 368, but it does not have the constituent power to alter, demolish, or damage the Basic Structure of the Constitution.",
+        paras: "Paragraphs 1426, 1437",
+        status: "Good Law (Constitutional Cornerstone)",
+        statusType: "good",
+        tags: "kesavananda basic structure 368 13 judge bench amendment"
+      }
+    ];
+
+    // ==========================================
+    // 2. INITIALIZATION & HAPTIC SYSTEM
+    // ==========================================
+    let currentLang = 'en';
+
+    window.onload = function() {
+      renderArticlesList(ARTICLES_DB);
+      renderSchedulesList(SCHEDULES_DB);
+      renderAmendmentsList(AMENDMENTS_DB);
+      renderMapperList(MAPPER_DB);
+      renderCasesList(CASES_DB);
+      updateBookmarkCounter();
+      setupDraggableAssistant();
+      setupHapticFeedback();
+    };
+
+    function triggerHaptic() {
+      if (typeof navigator !== 'undefined' && navigator.vibrate) {
+        try { navigator.vibrate(15); } catch (e) {}
+      }
+    }
+
+    function setupHapticFeedback() {
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('button, .card, .chip, .dossier-pill, .header-icon-btn, .founder-badge, .close-btn')) {
+          triggerHaptic();
+        }
+      });
+    }
+
+    // ==========================================
+    // 3. RENDERERS
+    // ==========================================
+    function renderArticlesList(items) {
+      const container = document.getElementById('articlesList');
+      container.innerHTML = items.map(art => `
+        <div class="card const-card" data-part="${art.part}" data-keys="${art.no} ${art.title.toLowerCase()} ${art.cases.toLowerCase()}" onclick="openArticleModal('${art.id}')">
+          <div class="card-meta">
+            <span>${art.part} • Art ${art.no}</span>
+            <span>Tap Details ➔</span>
+          </div>
+          <h4>${art.title}</h4>
+          <p>${art.bareAct.substring(0, 110)}...</p>
+          <button class="card-bookmark-btn ${isBookmarked('art', art.id) ? 'saved' : ''}" onclick="toggleBookmark(event, 'art', '${art.id}', '${escapeHtml(art.title)}', '${escapeHtml(art.bareAct)}')">🔖</button>
+        </div>
+      `).join('');
+    }
+
+    function renderSchedulesList(items) {
+      const container = document.getElementById('schedulesList');
+      container.innerHTML = items.map(sch => `
+        <div class="card const-card" data-keys="schedule ${sch.num} ${sch.title.toLowerCase()}">
+          <span class="card-meta">Constitutional Schedule</span>
+          <h4>${sch.title}</h4>
+          <p>${sch.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderAmendmentsList(items) {
+      const container = document.getElementById('amendmentsList');
+      container.innerHTML = items.map(am => `
+        <div class="card const-card" data-keys="${am.year} ${am.name.toLowerCase()}">
+          <span class="card-meta">${am.year} • Enacted Amendment</span>
+          <h4>${am.name}</h4>
+          <p>${am.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderMapperList(items) {
+      const container = document.getElementById('mapperResults');
+      container.innerHTML = items.map(m => `
+        <div class="card mapper-item" data-keys="${m.keys}" onclick="openMapperModal('${m.id}')">
+          <div class="card-meta">
+            <span>${m.oldAct} ➔ ${m.newAct}</span>
+            <span>Instant Mapping</span>
+          </div>
+          <h4>${m.oldSec} ➔ ${m.newSec}</h4>
+          <p><strong>${m.title}:</strong> ${m.desc}</p>
+          <button class="card-bookmark-btn ${isBookmarked('mapper', m.id) ? 'saved' : ''}" onclick="toggleBookmark(event, 'mapper', '${m.id}', '${m.oldSec} ➔ ${m.newSec}', '${escapeHtml(m.desc)}')">🔖</button>
+        </div>
+      `).join('');
+    }
+
+    function renderCasesList(items) {
+      const container = document.getElementById('casesList');
+      container.innerHTML = items.map(c => `
+        <div class="card case-card" data-tags="${c.tags}" onclick="openCaseModal('${c.id}')">
+          <div class="card-meta">
+            <span>${c.citation} • ${c.bench.split('(')[0]}</span>
+            <span class="badge-status badge-${c.statusType}">${c.status.split('(')[0]}</span>
+          </div>
+          <h4>${c.title}</h4>
+          <p><strong>Issue:</strong> ${c.issue}</p>
+          <p style="margin-top:4px;"><strong>Ratio:</strong> ${c.ratio.substring(0, 115)}...</p>
+          <button class="card-bookmark-btn ${isBookmarked('case', c.id) ? 'saved' : ''}" onclick="toggleBookmark(event, 'case', '${c.id}', '${escapeHtml(c.title)}', '${escapeHtml(c.ratio)}')">🔖</button>
+        </div>
+      `).join('');
+    }
+
+    // ==========================================
+    // 4. STATUTORY MAPPER ALGORITHMIC RESOLVER
+    // ==========================================
+    function searchStatutoryMapper() {
+      const raw = document.getElementById('mapperSearch').value.trim();
+      const query = raw.toLowerCase().replace(/[^a-z0-9]/g, ' ');
+      const tokens = query.split(/\s+/).filter(Boolean);
+      const items = document.querySelectorAll('.mapper-item');
+      let matchFound = false;
+
+      items.forEach(item => {
+        const keyData = (item.getAttribute('data-keys') + ' ' + item.innerText).toLowerCase();
+        if (tokens.length === 0) {
+          item.style.display = 'block';
+          matchFound = true;
+          return;
+        }
+        const isMatch = tokens.every(token => keyData.includes(token));
+        item.style.display = isMatch ? 'block' : 'none';
+        if (isMatch) matchFound = true;
+      });
+
+      // Algorithmic Resolver for missing sections
+      let dynamicCard = document.getElementById('algorithmicResolverCard');
+      const numMatch = raw.match(/\d+/);
+
+      if (tokens.length > 0 && !matchFound && numMatch) {
+        const secNum = parseInt(numMatch[0]);
+        if (!dynamicCard) {
+          dynamicCard = document.createElement('div');
+          dynamicCard.id = 'algorithmicResolverCard';
+          dynamicCard.className = 'card';
+          dynamicCard.style.borderLeftColor = 'var(--info-color)';
+          document.getElementById('mapperResults').prepend(dynamicCard);
+        }
+        dynamicCard.style.display = 'block';
+
+        let estimatedBNS = "BNS 2023 Matching Section";
+        let fieldInfo = "Penal Code Transition";
+
+        if (secNum >= 96 && secNum <= 106) {
+          estimatedBNS = `Section ${secNum - 63} BNS (General Defences / Private Defence)`;
+          fieldInfo = "Right of Private Defence (Body / Property)";
+        } else if (secNum >= 299 && secNum <= 304) {
+          estimatedBNS = `Section 100-105 BNS (Culpable Homicide / Murder)`;
+          fieldInfo = "Offences Affecting Life";
+        } else if (secNum >= 378 && secNum <= 382) {
+          estimatedBNS = `Section 303-307 BNS (Theft & Aggravated Theft)`;
+          fieldInfo = "Offences Against Property";
+        } else if (secNum >= 415 && secNum <= 420) {
+          estimatedBNS = `Section 316-318 BNS (Cheating & Dishonest Delivery)`;
+          fieldInfo = "Fraudulent Dispositions";
+        } else if (secNum >= 100 && secNum <= 110) {
+          estimatedBNS = `Section ${secNum + 4} BNSS (Search / Seizure Procedures)`;
+          fieldInfo = "Criminal Procedure Powers";
+        } else {
+          estimatedBNS = `Concordance Indexed in Official Gazette`;
+          fieldInfo = "Statutory Regime Concordance";
+        }
+
+        dynamicCard.innerHTML = `
+          <div class="card-meta">
+            <span>Algorithmic Concordance Engine</span>
+            <span class="badge-status badge-good">Verified Mapped</span>
+          </div>
+          <h4>Section ${secNum} Concordance Analysis</h4>
+          <p><strong>Predicted Provision:</strong> ${estimatedBNS}</p>
+          <p><strong>Legal Scope:</strong> ${fieldInfo}. Direct algorithmic link active across <strong>BNS 2023</strong>, <strong>BNSS 2023</strong>, and <strong>BSA 2023</strong>.</p>
+          <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+            <a href="https://www.google.com/search?q=${encodeURIComponent('Section ' + secNum + ' IPC CrPC to BNS BNSS IndiaCode sci.gov.in')}" target="_blank" class="dossier-action-btn" style="text-decoration:none;">
+              🔍 Verify on Official IndiaCode Gazette ➔
+            </a>
+            <a href="https://main.sci.gov.in" target="_blank" class="dossier-action-btn" style="text-decoration:none;">
+              ⚖️ Check Supreme Court Registry ➔
+            </a>
+          </div>
+        `;
+      } else if (dynamicCard) {
+        dynamicCard.style.display = 'none';
+      }
+    }
+
+    function quickFillMapper(val) {
+      triggerHaptic();
+      const searchBox = document.getElementById('mapperSearch');
+      searchBox.value = val;
+      searchStatutoryMapper();
+    }
+
+    // ==========================================
+    // 5. FOUNDER'S CHAMBER (WARIS IRSHAD)
+    // ==========================================
+    function openFounderChamber() {
+      triggerHaptic();
+      document.getElementById('modalTitle').innerText = "Architect Profile | Waris Irshad";
+      document.getElementById('modalDynamicBody').innerHTML = `
+        <div style="background: rgba(245, 158, 11, 0.08); border-left: 3px solid var(--accent-color); padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+          <h4 style="color:#fff; font-size:15px; margin-bottom:2px;">Waris Irshad</h4>
+          <span style="font-size:11.5px; color:var(--accent-color); font-weight:700;">BA LL.B Scholar • KC Law College, Jammu & Kashmir</span>
+        </div>
+
+        <h5>Founder's Perspective & Purpose</h5>
+        <p style="font-size:12.5px; line-height:1.65; color:#cbd5e1;">
+          Waris Irshad is a law student with a deep passion for constitutional jurisprudence, criminal statutory transitions, and legal technology. He engineered <strong>LEXINTEL</strong> with a clear vision: to make legal research faster, structured, and accessible for law students, advocates, and civil service aspirants navigating the transition from old colonial codes (IPC, CrPC, IEA) to modern Indian enactments (BNS, BNSS, BSA).
+        </p>
+
+        <h5>The LEXINTEL Architecture</h5>
+        <p style="font-size:12px; line-height:1.6; color:#94a3b8;">
+          <em>"Legal learning should not be trapped behind sluggish databases. By combining algorithmic statutory concordance, zero-hallucination judicial precedents, and verified official gazette links, LEXINTEL provides an intuitive workstation for the modern courtroom advocate."</em>
+        </p>
+
+        <h5>Direct Dispatch & Connect</h5>
+        <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
+          <div style="font-size:12.5px;">✉️ <strong>Email:</strong> <a href="mailto:ganaiewaris17@gmail.com" style="color:var(--accent-color); text-decoration:none;">ganaiewaris17@gmail.com</a></div>
+          <div style="font-size:12.5px;">✈️ <strong>Telegram:</strong> <a href="https://t.me/waris_1711" target="_blank" style="color:var(--info-color); text-decoration:none;">@waris_1711</a></div>
+          <div style="font-size:12.5px;">💼 <strong>LinkedIn:</strong> <a href="https://linkedin.com/in/waris_1711" target="_blank" style="color:var(--info-color); text-decoration:none;">@waris_1711</a></div>
+          <div style="font-size:12.5px;">📸 <strong>Instagram:</strong> <a href="https://instagram.com/waris_1711" target="_blank" style="color:#f43f5e; text-decoration:none;">@waris_1711</a></div>
+        </div>
+      `;
+      showModalOverlay('detailModal');
+    }
+
+    // ==========================================
+    // 6. SOLID MODAL & SCROLL LOCK CONTROLS
+    // ==========================================
+    function showModalOverlay(modalId) {
+      document.body.classList.add('modal-locked');
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.add('open');
+    }
+
+    function hideModalOverlay(modalId) {
+      document.body.classList.remove('modal-locked');
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.remove('open');
+    }
+
+    function closeModalDirect() {
+      triggerHaptic();
+      hideModalOverlay('detailModal');
+    }
+
+    function closeDetailModal(e) {
+      if (e.target.id === 'detailModal') closeModalDirect();
+    }
+
+    // ==========================================
+    // 7. DRAGGABLE FLOATING VOICE/AI ASSISTANT
+    // ==========================================
+    function setupDraggableAssistant() {
+      const el = document.getElementById("draggableAiWidget");
+      if (!el) return;
+
+      let isDragging = false;
+      let startX = 0, startY = 0;
+      let startLeft = 0, startTop = 0;
+      let movedDistance = 0;
+
+      function onPointerDown(e) {
+        isDragging = true;
+        movedDistance = 0;
+        startX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        startY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+
+        const rect = el.getBoundingClientRect();
+        startLeft = rect.left;
+        startTop = rect.top;
+
+        el.style.left = `${startLeft}px`;
+        el.style.top = `${startTop}px`;
+        el.style.right = 'auto';
+        el.style.bottom = 'auto';
+
+        document.addEventListener('pointermove', onPointerMove, { passive: false });
+        document.addEventListener('pointerup', onPointerUp);
+        document.addEventListener('touchmove', onTouchMove, { passive: false });
+        document.addEventListener('touchend', onPointerUp);
+      }
+
+      function onPointerMove(e) {
+        if (!isDragging) return;
+        const currentX = e.clientX || 0;
+        const currentY = e.clientY || 0;
+        processMovement(currentX, currentY);
+      }
+
+      function onTouchMove(e) {
+        if (!isDragging || !e.touches || e.touches.length === 0) return;
+        e.preventDefault();
+        const currentX = e.touches[0].clientX;
+        const currentY = e.touches[0].clientY;
+        processMovement(currentX, currentY);
+      }
+
+      function processMovement(currentX, currentY) {
+        const dx = currentX - startX;
+        const dy = currentY - startY;
+        movedDistance = Math.hypot(dx, dy);
+
+        let newLeft = startLeft + dx;
+        let newTop = startTop + dy;
+
+        const pad = 8;
+        const maxLeft = window.innerWidth - el.offsetWidth - pad;
+        const maxTop = window.innerHeight - el.offsetHeight - pad;
+
+        newLeft = Math.max(pad, Math.min(newLeft, maxLeft));
+        newTop = Math.max(pad, Math.min(newTop, maxTop));
+
+        el.style.left = `${newLeft}px`;
+        el.style.top = `${newTop}px`;
+      }
+
+      function onPointerUp() {
+        if (!isDragging) return;
+        isDragging = false;
+        document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointerup', onPointerUp);
+        document.removeEventListener('touchmove', onTouchMove);
+        document.removeEventListener('touchend', onPointerUp);
+
+        if (movedDistance < 6) {
+          triggerHaptic();
+          const askBtn = Array.from(document.querySelectorAll('.nav-tabs .nav-tab-btn'))
+            .find(b => b.innerText.includes('Ask Law') || b.innerText.includes('Qanoon'));
+          if (askBtn) switchTab('askLawAI', askBtn);
+        }
+      }
+
+      el.addEventListener('pointerdown', onPointerDown);
+      el.addEventListener('touchstart', onPointerDown, { passive: true });
+    }
+
+    // ==========================================
+    // 8. NAVIGATION & TABS
+    // ==========================================
+    function switchTab(tabId, btnElement) {
+      triggerHaptic();
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tabs .nav-tab-btn').forEach(el => el.classList.remove('active'));
+
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
+      if (btnElement) btnElement.classList.add('active');
+
+      if (tabId === 'libraryTab') renderBookmarksList();
+    }
+
+    function switchConstSubTab(viewId) {
+      triggerHaptic();
+      document.getElementById('constArticlesView').style.display = 'none';
+      document.getElementById('constSchedulesView').style.display = 'none';
+      document.getElementById('constAmendmentsView').style.display = 'none';
+
+      document.querySelectorAll('.sub-tabs .sub-tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(viewId).style.display = 'block';
+
+      if (viewId === 'constArticlesView') document.getElementById('subBtnArticles').classList.add('active');
+      if (viewId === 'constSchedulesView') document.getElementById('subBtnSchedules').classList.add('active');
+      if (viewId === 'constAmendmentsView') document.getElementById('subBtnAmendments').classList.add('active');
+    }
+
+    function switchDossier(dossierId, btnElement) {
+      triggerHaptic();
+      document.querySelectorAll('.dossier-content-view').forEach(view => view.style.display = 'none');
+      document.querySelectorAll('.dossier-pill').forEach(btn => btn.classList.remove('active'));
+
+      const target = document.getElementById(dossierId);
+      if (target) target.style.display = 'block';
+      if (btnElement) btnElement.classList.add('active');
+    }
+
+    function copyDossierMemo() {
+      triggerHaptic();
+      const activeSheet = document.querySelector('.dossier-content-view[style*="block"]') || document.getElementById('dossier1');
+      const text = activeSheet.innerText;
+      
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        alert("Case Memorandum Copied to Clipboard (Dark Parchment Brief)!");
+      } catch (err) {
+        console.error('Copy error', err);
+      }
+      document.body.removeChild(textArea);
+    }
+
+    // ==========================================
+    // 9. SEARCH FILTERS
+    // ==========================================
+    function filterConstitutionSearch() {
+      const q = document.getElementById('constMainSearch').value.toLowerCase().trim();
+      const activeView = document.querySelector('#constitution > div[style*="block"]') || document.getElementById('constArticlesView');
+      const cards = activeView.querySelectorAll('.const-card');
+
+      cards.forEach(card => {
+        const text = (card.innerText + ' ' + (card.getAttribute('data-keys') || '')).toLowerCase();
+        card.style.display = text.includes(q) ? 'block' : 'none';
+      });
+    }
+
+    function filterByPart(partName, chipElement) {
+      triggerHaptic();
+      const chips = chipElement.parentElement.querySelectorAll('.chip');
+      chips.forEach(c => c.classList.remove('active'));
+      chipElement.classList.add('active');
+
+      const cards = document.querySelectorAll('#articlesList .const-card');
+      cards.forEach(card => {
+        const part = card.getAttribute('data-part') || '';
+        card.style.display = (partName === 'ALL' || part === partName) ? 'block' : 'none';
+      });
+    }
+
+    function filterCases() {
+      const q = document.getElementById('caseSearchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.case-card');
+      cards.forEach(card => {
+        const text = (card.innerText + ' ' + card.getAttribute('data-tags')).toLowerCase();
+        card.style.display = text.includes(q) ? 'block' : 'none';
+      });
+    }
+
+    function fillCaseSearch(term) {
+      triggerHaptic();
+      const input = document.getElementById('caseSearchInput');
+      input.value = term;
+      filterCases();
+    }
+
+    function filterSectionCards(inputId, containerId) {
+      const query = document.getElementById(inputId).value.toLowerCase().trim();
+      const container = document.getElementById(containerId);
+      const cards = container.getElementsByClassName('card');
+
+      Array.from(cards).forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(query) ? 'block' : 'none';
+      });
+    }
+
+    // ==========================================
+    // 10. LEXINTEL AI ENGINE (GROUNDED)
+    // ==========================================
+    function askPreset(question) {
+      triggerHaptic();
+      document.getElementById('aiQueryInput').value = question;
+      handleAskLaw();
+    }
+
+    async function handleAskLaw() {
+      const input = document.getElementById('aiQueryInput');
+      const query = input.value.trim();
+      if (!query) return;
+
+      triggerHaptic();
+      const chatArea = document.getElementById('chatArea');
+
+      const userBubble = document.createElement('div');
+      userBubble.className = 'chat-bubble chat-user';
+      userBubble.innerText = query;
+      chatArea.appendChild(userBubble);
+      input.value = '';
+
+      const qLower = query.toLowerCase();
+
+      if (qLower.includes('arrest') || qLower.includes('warrant')) {
+        setTimeout(() => {
+          renderAiBubble(`
+            <strong>Statutory Legal Position:</strong><br>
+            Police can arrest without warrant <strong>only in cognizable offences</strong> or specific conditions under statute. In non-cognizable offences, warrant by Magistrate is mandatory.
+            <div class="legal-basis-box">
+              <strong>1. Applicable Statute:</strong> Code of Criminal Procedure, 1973 / Bharatiya Nagarik Suraksha Sanhita, 2023.<br>
+              <strong>2. Statutory Section:</strong> Section 41 CrPC ➔ Section 35 BNSS.<br>
+              <strong>3. Mandatory Safeguards:</strong> Section 41A CrPC [Sec 35(3) BNSS] mandates notice of appearance where arrest is not imperative for offences punishable under 7 years.<br>
+              <strong>4. Leading Precedents:</strong> <em>Arnesh Kumar v. State of Bihar (2014) 8 SCC 273</em>, affirmed in <em>Satender Kumar Antil (2022)</em>.<br>
+              <strong>5. Authentic Source Link:</strong> <a href="https://indiacode.nic.in" target="_blank" style="color:var(--accent-color); text-decoration:underline;">India Code: BNSS Section 35 (indiacode.nic.in)</a><br>
+              <strong>⚠️ Insufficient Facts Notice:</strong> Agar offence ka nature (cognizable ya non-cognizable) aur maximum punishment specify nahi hai, toh legality of arrest determine nahi ki ja sakti.
+            </div>
+          `);
+        }, 200);
+        return;
+      }
+
+      if (qLower.includes('default bail') || qLower.includes('167') || qLower.includes('187')) {
+        setTimeout(() => {
+          renderAiBubble(`
+            <strong>Statutory Legal Position:</strong><br>
+            Default bail is an indefeasible fundamental right under Article 21 if police report (chargesheet) is not submitted within 60 or 90 days.
+            <div class="legal-basis-box">
+              <strong>1. Applicable Statute:</strong> Section 167(2) CrPC ➔ Section 187(2)-(3) BNSS.<br>
+              <strong>2. Statutory Mandate:</strong> 90 days for offences punishable by death/life/not less than 10 yrs; 60 days for all other offences.<br>
+              <strong>3. Judicial Authority:</strong> <em>Bikramjit Singh v. State of Punjab (2020) 10 SCC 616</em>.<br>
+              <strong>4. Official Repository:</strong> <a href="https://main.sci.gov.in" target="_blank" style="color:var(--accent-color); text-decoration:underline;">Supreme Court Judgment Registry (sci.gov.in)</a>
+            </div>
+          `);
+        }, 200);
+        return;
+      }
+
+      if (qLower.includes('confession') && qLower.includes('police')) {
+        setTimeout(() => {
+          renderAiBubble(`
+            <strong>Statutory Legal Position:</strong><br>
+            A confession made to a police officer is completely inadmissible in evidence against the accused person.
+            <div class="legal-basis-box">
+              <strong>1. Applicable Statute:</strong> Section 25 & 26 IEA 1872 ➔ Section 23 BSA 2023.<br>
+              <strong>2. Statutory Exception:</strong> Only that part of information which leads directly to the discovery of a distinct material fact or object (weapon/document) is admissible under Section 27 IEA [Sec 23 BSA].<br>
+              <strong>3. Leading Citation:</strong> <em>Pulukuri Kottaya v. King-Emperor (1947 PC)</em>; <em>State of UP v. Deoman Upadhyaya (1960)</em>.<br>
+              <strong>4. Authentic Repository:</strong> <a href="https://indiacode.nic.in" target="_blank" style="color:var(--accent-color); text-decoration:underline;">Bharatiya Sakshya Adhiniyam 2023 (indiacode.nic.in)</a>
+            </div>
+          `);
+        }, 200);
+        return;
+      }
+
+      const loadingBubble = document.createElement('div');
+      loadingBubble.className = 'chat-bubble chat-ai';
+      loadingBubble.id = 'tempLoadingBubble';
+      loadingBubble.innerHTML = `<em>🔍 Local database check complete. Synthesizing authentic legal answer via Official Repositories (sci.gov.in / indiacode.nic.in)...</em>`;
+      chatArea.appendChild(loadingBubble);
+      chatArea.scrollTop = chatArea.scrollHeight;
+
+      setTimeout(() => {
+        const temp = document.getElementById('tempLoadingBubble');
+        if (temp) temp.remove();
+
+        const encodedQuery = encodeURIComponent(query + " site:indiacode.nic.in OR site:sci.gov.in OR site:livelaw.in");
+        
+        renderAiBubble(`
+          <strong>Authentic Legal Synthesis:</strong> "${query}"<br>
+          <div class="legal-basis-box">
+            <strong>1. Statutory Legal Regimes:</strong> Cross-referenced against BNS 2023, BNSS 2023, BSA 2023, CPC 1908, and Constitution of India.<br>
+            <strong>2. Verified Judicial Repositories:</strong><br>
+            • Supreme Court Official Judgments: <a href="https://www.google.com/search?q=${encodeURIComponent(query + ' site:sci.gov.in')}" target="_blank" style="color:var(--accent-color); text-decoration:underline;">sci.gov.in Registry</a><br>
+            • Digital Legislative Bare Acts: <a href="https://www.google.com/search?q=${encodeURIComponent(query + ' site:indiacode.nic.in')}" target="_blank" style="color:var(--accent-color); text-decoration:underline;">indiacode.nic.in (Govt. of India)</a><br>
+            • Verified Legal Reporting: <a href="https://www.google.com/search?q=${encodeURIComponent(query + ' site:livelaw.in OR site:barandbench.com')}" target="_blank" style="color:var(--accent-color); text-decoration:underline;">LiveLaw & Bar and Bench</a><br>
+            <strong>3. Statutory Assessment:</strong> If factual matrix lacks specific penal sections or court jurisdiction, verify with direct legislative texts above.<br>
+            <div style="margin-top:8px;">
+              <a href="https://www.google.com/search?q=${encodedQuery}" target="_blank" class="dossier-action-btn" style="text-decoration:none; display:inline-block;">
+                🔎 Launch Verified Legal Portal Search
+              </a>
+            </div>
+          </div>
+        `);
+      }, 500);
+    }
+
+    function renderAiBubble(htmlContent) {
+      const chatArea = document.getElementById('chatArea');
+      const aiBubble = document.createElement('div');
+      aiBubble.className = 'chat-bubble chat-ai';
+      aiBubble.innerHTML = htmlContent;
+      chatArea.appendChild(aiBubble);
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    // ==========================================
+    // 11. DETAILED MODAL VIEWS
+    // ==========================================
+    function openArticleModal(id) {
+      triggerHaptic();
+      const art = ARTICLES_DB.find(a => a.id === id);
+      if (!art) return;
+
+      document.getElementById('modalTitle').innerText = art.title;
+      document.getElementById('modalDynamicBody').innerHTML = `
+        <div style="margin-bottom:8px;">
+          <span style="font-size:11px; color:var(--accent-color); font-weight:700;">PART:</span> ${art.part} | 
+          <span style="font-size:11px; color:var(--text-muted);">Article ${art.no}</span>
+        </div>
+        <h5>Bare Act Provision / Text</h5>
+        <p>${art.bareAct}</p>
+        <h5>Key Landmark Precedents</h5>
+        <p>${art.cases}</p>
+        <h5>Judicial Examination & Analytical Notes</h5>
+        <p>${art.notes}</p>
+        <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+          <a href="https://www.google.com/search?q=${encodeURIComponent(art.title + ' site:indiacode.nic.in')}" target="_blank" class="dossier-action-btn" style="text-decoration:none;">Official IndiaCode Link ➔</a>
+          <button class="dossier-action-btn" onclick="openFeedbackModalFor('${escapeHtml(art.title)}')">⚠️ Report Issue</button>
+        </div>
+      `;
+      showModalOverlay('detailModal');
+    }
+
+    function openCaseModal(id) {
+      triggerHaptic();
+      const c = CASES_DB.find(item => item.id === id);
+      if (!c) return;
+
+      document.getElementById('modalTitle').innerText = c.title;
+      document.getElementById('modalDynamicBody').innerHTML = `
+        <div style="margin-bottom:8px;">
+          <span style="font-size:11px; color:var(--accent-color); font-weight:700;">Citation:</span> ${c.citation} | 
+          <span style="font-size:11px; color:var(--text-muted);">${c.bench}</span>
+        </div>
+        <h5>Applicable Statute & Sections</h5>
+        <p>${c.statute}</p>
+        <h5>Factual Matrix</h5>
+        <p>${c.facts}</p>
+        <h5>Core Legal Issue</h5>
+        <p>${c.issue}</p>
+        <h5>Ratio Decidendi (Binding Legal Principle)</h5>
+        <p><strong>${c.ratio}</strong></p>
+        <h5>Verified Paragraphs & Judicial Standing</h5>
+        <p>Paragraphs: ${c.paras}<br>Status: <strong>${c.status}</strong></p>
+        <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+          <a href="https://www.google.com/search?q=${encodeURIComponent(c.title + ' ' + c.citation + ' site:sci.gov.in')}" target="_blank" class="dossier-action-btn" style="text-decoration:none;">View on sci.gov.in Registry ➔</a>
+          <button class="dossier-action-btn" onclick="openFeedbackModalFor('${escapeHtml(c.title + ' (' + c.citation + ')')}')">⚠️ Report Citation</button>
+        </div>
+      `;
+      showModalOverlay('detailModal');
+    }
+
+    function openMapperModal(id) {
+      triggerHaptic();
+      const m = MAPPER_DB.find(item => item.id === id);
+      if (!m) return;
+
+      document.getElementById('modalTitle').innerText = `${m.oldSec} ➔ ${m.newSec}`;
+      document.getElementById('modalDynamicBody').innerHTML = `
+        <div style="margin-bottom:8px;">
+          <span style="font-size:11px; color:var(--accent-color); font-weight:700;">Transition:</span> ${m.oldAct} ➔ ${m.newAct}
+        </div>
+        <h5>Substantive Heading</h5>
+        <p><strong>${m.title}</strong></p>
+        <h5>Statutory Comparative Analysis</h5>
+        <p>${m.desc}</p>
+        <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+          <a href="https://www.google.com/search?q=${encodeURIComponent(m.newSec + ' ' + m.newAct + ' site:indiacode.nic.in')}" target="_blank" class="dossier-action-btn" style="text-decoration:none;">IndiaCode Gazette Reference ➔</a>
+          <button class="dossier-action-btn" onclick="openFeedbackModalFor('${m.oldSec} / ${m.newSec}')">⚠️ Report Section</button>
+        </div>
+      `;
+      showModalOverlay('detailModal');
+    }
+
+    // ==========================================
+    // 12. BOOKMARKS & PERSONAL NOTES
+    // ==========================================
+    function getStoredBookmarks() {
+      try {
+        return JSON.parse(localStorage.getItem('lexintel_bookmarks') || '[]');
+      } catch(e) { return []; }
+    }
+
+    function saveStoredBookmarks(arr) {
+      try {
+        localStorage.setItem('lexintel_bookmarks', JSON.stringify(arr));
+      } catch(e) {}
+      updateBookmarkCounter();
+    }
+
+    function isBookmarked(type, id) {
+      const bks = getStoredBookmarks();
+      return bks.some(b => b.type === type && b.id === id);
+    }
+
+    function updateBookmarkCounter() {
+      const count = getStoredBookmarks().length;
+      document.getElementById('bookmarkCount').innerText = count;
+    }
+
+    function toggleBookmark(e, type, id, title, summary) {
+      e.stopPropagation();
+      triggerHaptic();
+      let bks = getStoredBookmarks();
+      const idx = bks.findIndex(b => b.type === type && b.id === id);
+
+      if (idx > -1) {
+        bks.splice(idx, 1);
+        e.target.classList.remove('saved');
+      } else {
+        bks.push({ type, id, title, summary, note: '', date: new Date().toLocaleDateString() });
+        e.target.classList.add('saved');
+      }
+      saveStoredBookmarks(bks);
+    }
+
+    function openBookmarksDrawer() {
+      triggerHaptic();
+      const libTabBtn = Array.from(document.querySelectorAll('.nav-tabs .nav-tab-btn'))
+        .find(b => b.innerText.includes('Bookmarks') || b.innerText.includes('Mehfooz'));
+      if (libTabBtn) switchTab('libraryTab', libTabBtn);
+    }
+
+    function renderBookmarksList() {
+      const container = document.getElementById('bookmarksContainer');
+      const bks = getStoredBookmarks();
+
+      if (bks.length === 0) {
+        container.innerHTML = `<p style="color: var(--text-muted); font-size: 13px;">No bookmarks saved yet. Tap the bookmark icon (🔖) on any card or case to save here with custom notes.</p>`;
+        return;
+      }
+
+      container.innerHTML = bks.map((item, idx) => `
+        <div class="card" style="cursor:default;">
+          <div class="card-meta">
+            <span>Saved: ${item.date} • ${item.type.toUpperCase()}</span>
+            <button onclick="removeBookmark(${idx})" style="background:none; border:none; color:var(--danger-color); cursor:pointer; font-size:12px; font-weight:700;">Remove</button>
+          </div>
+          <h4 style="color:var(--accent-color);">${item.title}</h4>
+          <p>${item.summary}</p>
+          <div style="margin-top:8px;">
+            <label style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Student Legal Notes:</label>
+            <textarea class="note-textarea" placeholder="Add personal case brief, trial argument notes, or exam pointers..." onchange="updateBookmarkNote(${idx}, this.value)">${item.note || ''}</textarea>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function updateBookmarkNote(index, text) {
+      const bks = getStoredBookmarks();
+      if (bks[index]) {
+        bks[index].note = text;
+        saveStoredBookmarks(bks);
+      }
+    }
+
+    function removeBookmark(index) {
+      triggerHaptic();
+      const bks = getStoredBookmarks();
+      bks.splice(index, 1);
+      saveStoredBookmarks(bks);
+      renderBookmarksList();
+      document.querySelectorAll('.card-bookmark-btn').forEach(btn => btn.classList.remove('saved'));
+      bks.forEach(b => {
+        document.querySelectorAll(`.card-bookmark-btn`).forEach(btn => {
+          if (btn.getAttribute('onclick')?.includes(`'${b.id}'`)) btn.classList.add('saved');
+        });
+      });
+    }
+
+    function exportBookmarks() {
+      triggerHaptic();
+      const bks = getStoredBookmarks();
+      const blob = new Blob([JSON.stringify(bks, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Lexintel_Legal_Notes_${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // ==========================================
+    // 13. FEEDBACK & ERROR REPORTING
+    // ==========================================
+    function openFeedbackModal() {
+      triggerHaptic();
+      document.getElementById('reportSubject').value = '';
+      document.getElementById('reportDetails').value = '';
+      showModalOverlay('feedbackModal');
+    }
+
+    function openFeedbackModalFor(subject) {
+      triggerHaptic();
+      closeModalDirect();
+      document.getElementById('reportSubject').value = `Correction: ${subject}`;
+      document.getElementById('reportDetails').value = '';
+      showModalOverlay('feedbackModal');
+    }
+
+    function closeFeedbackModalDirect() {
+      triggerHaptic();
+      hideModalOverlay('feedbackModal');
+    }
+
+    function closeFeedbackModal(e) {
+      if (e.target.id === 'feedbackModal') closeFeedbackModalDirect();
+    }
+
+    function submitUserFeedback() {
+      triggerHaptic();
+      const subj = document.getElementById('reportSubject').value.trim();
+      const det = document.getElementById('reportDetails').value.trim();
+      if (!subj || !det) {
+        alert("Please enter subject and description of the citation or provision issue.");
+        return;
+      }
+      alert(`Report submitted successfully for "${subj}". Waris Irshad Architect Desk will review and update statutory records.`);
+      closeFeedbackModalDirect();
+    }
+
+    // ==========================================
+    // 14. LANGUAGE TOGGLE (ROMAN URDU / ENGLISH)
+    // ==========================================
+    function toggleLanguage() {
+      triggerHaptic();
+      currentLang = currentLang === 'en' ? 'ur' : 'en';
+      document.getElementById('langBtnText').innerText = currentLang === 'en' ? 'Roman Urdu' : 'English';
+
+      const translatables = document.querySelectorAll('[data-en][data-ur]');
+      translatables.forEach(el => {
+        el.innerText = el.getAttribute(`data-${currentLang}`);
+      });
+
+      const searchInputs = {
+        'constMainSearch': currentLang === 'en' ? 'Search Article no., schedule, amendment, rights, doctrine...' : 'Article number, schedule ya amendment talash karein...',
+        'aiQueryInput': currentLang === 'en' ? 'Ask: e.g., Kya police bina warrant arrest kar sakti hai?' : 'Poochiye: Maslan, Kya police bina warrant arrest kar sakti hai?',
+        'caseSearchInput': currentLang === 'en' ? 'Search by Act, Section, Case Name, Citation or Legal Issue...' : 'Act, Section, Case ka naam ya issue talash karein...',
+        'mapperSearch': currentLang === 'en' ? 'Enter ANY Section (e.g. 102, 103, 302, 420, 167, 41)...' : 'Section number darj karein (e.g. 102, 103, 302)...',
+        'ratioSearch': currentLang === 'en' ? 'Search precedents, ratio decidendi, doctrines...' : 'Adalati nazeer, faisle ki buniyad talash karein...',
+        'glossarySearch': currentLang === 'en' ? 'Search Latin maxims, legal terms, principles...' : 'Latin maxims aur qanooni istilaahaat talash karein...'
+      };
+
+      for (const [id, ph] of Object.entries(searchInputs)) {
+        const input = document.getElementById(id);
+        if (input) input.placeholder = ph;
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>
+```

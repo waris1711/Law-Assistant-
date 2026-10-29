@@ -1,0 +1,6 @@
+{
+  "name": "LexIntel — Legal Intelligence & Statutory Cross-Mapping System",
+  "description": "Clinical legal intelligence workbench for litigators, advocates, and jurists featuring structured statutory breakdowns, IPC/CrPC/IEA to BNS/BNSS/BSA regime cross-mapping, precedent ratio analysis, and chronological procedural roadmaps.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
