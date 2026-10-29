@@ -39,7 +39,7 @@ jobs:
           cat << 'EOF' > capacitor.config.json
           {
             "appId": "com.lawassistant.app",
-            "appName": "Lixintel",
+            "appName": "LixIntel",
             "webDir": "dist"
           }
           EOF
