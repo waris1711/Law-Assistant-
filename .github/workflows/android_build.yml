@@ -19,7 +19,7 @@ jobs:
           node-version: '20'
 
       - name: Set up Java JDK
-      - name: Set up Java JDK
+
         uses: actions/setup-java@v3
         with:
         distribution: 'zulu'
