@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '17'
+          java-version: '21'
 
       - name: Install dependencies
         run: |
@@ -35,7 +35,6 @@ jobs:
 
       - name: Setup Capacitor Configuration
         run: |
-          # Purani broken ts config hata kar pure JSON config banayein
           rm -f capacitor.config.ts
           cat << 'EOF' > capacitor.config.json
           {
