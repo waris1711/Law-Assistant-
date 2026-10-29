@@ -24,8 +24,9 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
+            - name: Install dependencies
+        run: npm install --force
+        
 
       - name: Setup Capacitor / Android
         run: npm install @capacitor/android
