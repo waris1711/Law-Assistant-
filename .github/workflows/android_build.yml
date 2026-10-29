@@ -28,7 +28,7 @@ jobs:
         run: npm install --legacy-peer-deps 
         name: Setup Capacitor / Android)
       - name: Build Web Assets
-        run: npm run build --- name: Setup Capacitor
+        run: npm run build
         run: npx cap sync android || echo
         "No Capacitor installed, skipping sync"
       
