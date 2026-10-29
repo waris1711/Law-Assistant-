@@ -37,7 +37,6 @@ jobs:
         run: npx cap sync android || echo "No Capacitor installed, skipping sync"
 
       - name: Build APK with Gradle
-        name: Build with Gradle
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug
