@@ -28,13 +28,15 @@ jobs:
         run: |
           npm cache clean --force
           npm install --legacy-peer-deps
-          npm install -g @capacitor/cli @capacitor/core
+          npm install -D @capacitor/cli @capacitor/core @capacitor/android
 
       - name: Build Web Assets
         run: npm run build
 
-      - name: Run cap sync android
-        run: npx cap sync android || echo "Sync skipped"
+      - name: Add Android Platform & Sync
+        run: |
+          npx cap add android || echo "Android platform already exists"
+          npx cap sync android
 
       - name: Build APK with Gradle
         run: |
