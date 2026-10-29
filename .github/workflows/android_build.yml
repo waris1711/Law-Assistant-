@@ -17,12 +17,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: Set up Java JDK
-        uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: '17'
+
+      - name: Install dependencies
+        run: |
+          npm cache clean --force
+          npm install --legacy-peer-deps
+          
     
             - name: Install dependencies
         run: |
