@@ -28,15 +28,13 @@ jobs:
         run: |
           npm cache clean --force
           npm install --legacy-peer-deps
-
-      - name: Setup Capacitor / Android
-        run: npx cap sync @capacitor/android
+          npm install -g @capacitor/cli @capacitor/core
 
       - name: Build Web Assets
         run: npm run build
 
       - name: Run cap sync android
-        run: npx cap sync android || echo "No Capacitor installed, skipping sync"
+        run: npx cap sync android || echo "Sync skipped"
 
       - name: Build APK with Gradle
         run: |
